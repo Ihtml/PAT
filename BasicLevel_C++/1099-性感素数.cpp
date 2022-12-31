@@ -30,10 +30,9 @@ int main() {
         }
     }
     if (!flag) {
-        for (int i = num+1;; i++) {
-            if (isPrime(i)) {
-                if (isPrime(i - 6) || isPrime(i + 6)) {
-                    num = i;
+        for (num = num+1;; num++) {
+            if (isPrime(num)) {
+                if (isPrime(num - 6) || isPrime(num + 6)) {
                     break;
                 }
             }
