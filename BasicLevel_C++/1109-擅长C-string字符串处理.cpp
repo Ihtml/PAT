@@ -37,7 +37,7 @@ int main() {
         }
         for (int k = 0; k < 7; k++) {
             flag = 1;
-            for (int l = 0; l < 6 * (j - 1) - 1; l++) {
+            for (int l = 0; l < 6 * (j - i) - 1; l++) {
                 cout << out[k][l];
             }
             cout << '\n';
