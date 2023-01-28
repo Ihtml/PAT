@@ -6,7 +6,7 @@
 using namespace std;
 bool isPrime(int n) {
     if (n < 5) {
-        if (n == 2 || n == 3) {
+        if ( n == 3) {  // 本题要求是大于2的素数
             return true;
         }
         return false;
@@ -29,6 +29,11 @@ struct node {
         return a.num < b.num;
     }
 } T;
+bool cmp(node a, node b) {
+    if (a.n != b.n)
+        return a.n < b.n;
+    return a.num < b.num;
+}
 vector<node> A;
 
 int main() {
@@ -55,12 +60,13 @@ int main() {
                     sum2 += Y % 10;
                     Y /= 10;
                 }
-                if (sum == m && isPrime(gcd(m, sum2))) {
+                if (sum == m && isPrime(__gcd(m, sum2))) {
                     T.n = sum2, T.num = i;
                     A.push_back(T);
                 }
             }
             sort(A.begin(), A.end());
+            // sort(A.begin(), A.end(), cmp);
             if (A.empty()) {
                 cout << "No Solution\n";
             }
