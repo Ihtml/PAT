@@ -1,9 +1,17 @@
 #include <algorithm>
 #include <cstdio>
 using namespace std;
+bool visit[1010];
+int n, v[1010][1010];
+void dfs(int node) {
+    visit[node] = true;
+    for (int i = 1; i <= n; i++) {
+        if (visit[i] == false && v[node][i] == 1)
+            dfs(i);
+    }
+}
 int main() {
-    int n, m, k, a, b, v[1010][1010];
-    bool visit[1010];
+    int m, k, a, b;
     scanf("%d%d%d", &n, &m, &k);
     for (int i = 0; i < m; i++) {
         scanf("%d%d", &a, &b);
