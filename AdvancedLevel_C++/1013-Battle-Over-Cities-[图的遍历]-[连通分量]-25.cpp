@@ -18,8 +18,17 @@ int main() {
         v[a][b] = v[b][a] = 1;
     }
     for (int i = 0; i < k; i++) {
-        fill(visit, visit + 100, false);
+        fill(visit, visit + 1010, false);
         scanf("%d", &a);
+        int cnt = 0;
+        visit[a] = true;
+        for (int j = 1; j <= n; j++) {
+            if (visit[j] == false) {
+                dfs(j);
+                cnt++;  // 连通分量数
+            }
+        }
+        printf("%d\n", cnt - 1);
     }
     return 0;
 }
