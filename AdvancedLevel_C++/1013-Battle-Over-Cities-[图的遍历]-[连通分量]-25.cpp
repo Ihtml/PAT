@@ -10,9 +10,11 @@ void dfs(int node) {
             dfs(i);
     }
 }
+// 求去除了某个结点之后其他的图所拥有的联通分量数a
+// 当a个相互分离的连通分量需要变为连通图的时候，只需要添加a-1个边
 int main() {
     int m, k, a, b;
-    scanf("%d%d%d", &n, &m, &k);
+    scanf("%d%d%d", &n, &m, &k); // n个点 m条边 k个待检测点
     for (int i = 0; i < m; i++) {
         scanf("%d%d", &a, &b);
         v[a][b] = v[b][a] = 1;
@@ -23,6 +25,7 @@ int main() {
         int cnt = 0;
         visit[a] = true;
         for (int j = 1; j <= n; j++) {
+            // 在深度优先遍历的时候，对于所有未访问的结点进行遍历，得到所有连通分量个数
             if (visit[j] == false) {
                 dfs(j);
                 cnt++;  // 连通分量数
