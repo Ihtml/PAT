@@ -33,6 +33,24 @@ int main() {
             }
         }
     }
+    while (index <= k) {
+        int tempmin = window[1].poptime, tempwindow = 1;
+        for (int i = 2; i <= n; i++) {
+            if (window[i].poptime < tempmin) {
+                tempwindow = i;
+                tempmin = window[i].poptime;
+            }
+        }
+        window[tempwindow].q.pop();
+        window[tempwindow].q.push(time[index]);
+        window[tempwindow].poptime += window[tempwindow].q.front();
+        if (window[tempwindow].endtime >= 540) {
+            sorry[index] = true;
+        }
+        window[tempwindow].endtime += time[index];
+        result[index] = window[tempwindow].endtime;
+        index++;
+    }
 
     return 0;
 }
