@@ -51,6 +51,15 @@ int main() {
         result[index] = window[tempwindow].endtime;
         index++;
     }
-
+    for (int i = 1; i <= q; i++) {
+        int query, minute;
+        scanf("%d", &query);
+        minute = result[query];
+        if (sorry[query] == true) {
+            printf("Sorry\n");
+        } else {
+            printf("%02d:%02d\n", (minute + 480) / 60, (minute + 480) % 60);
+        }
+    }
     return 0;
 }
