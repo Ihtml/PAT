@@ -26,13 +26,19 @@ void pre(int root, int start, int end, int index) {
     while (i < end && in[i] != post[root]) {
         i++;
     }
-    node a;
-    a.index = index;
-    a.value = post[root];
+    // 方式一：
+    // node a;
+    // a.index = index;
+    // a.value = post[root];
+    // ans.push_back(a);
+
+    // 方式二：C++11以下低版本编译器不支持使用花括号初始化方式。可以将这一行代码改成方式三使用构造函数进行初始化：
     // ans.push_back({index, post[root]});
-    ans.push_back(a);
+
+    // 方式三：
+    ans.push_back(node{index, post[root]});
     pre(root - 1 - end + i, start, i - 1, 2 * index + 1);  // 左子树
-    pre(root - 1, i + 1, end, 2 * index + 2);  // 右子树
+    pre(root - 1, i + 1, end, 2 * index + 2);              // 右子树
 }
 int main() {
     int n;
@@ -45,8 +51,8 @@ int main() {
     for (int i = 0; i < n; i++) {
         scanf("%d", &in[i]);
     }
-    pre(n - 1, 0, n - 1, 0);
-    sort(ans.begin(), ans.end(), cmp);
+    pre(n - 1, 0, n - 1, 0);            // 输出先序的递归
+    sort(ans.begin(), ans.end(), cmp);  // vector中按照 index排序就是层序遍历的顺序
     for (int i = 0; i < ans.size(); i++) {
         if (i != 0) {
             cout << " ";
