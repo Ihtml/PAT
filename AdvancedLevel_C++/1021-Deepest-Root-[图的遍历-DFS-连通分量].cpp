@@ -1,9 +1,11 @@
 #include <iostream>
+#include <set>
 #include <vector>
 using namespace std;
 int n, maxheight = 0;
 vector<vector<int>> v;
-bool visit[100];
+bool visit[10010];
+set<int> s;
 vector<int> temp;
 void dfs(int node, int height) {
     if (height > maxheight) {
@@ -29,5 +31,20 @@ int main() {
         v[a].push_back(b);
         v[b].push_back(a);
     }
+    for (int i = 1; i <= n; i++) {
+        if (visit[i] == false) {
+            dfs(i, 1);
+            if (i == 1) {
+                if (temp.size() != 0) {
+                    s1 = temp[0];
+                }
+                for (int j = 0; j < temp.size(); j++) {
+                    s.insert(temp[j]);
+                }
+            }
+            cnt++;
+        }
+    }
+
     return 0;
 }
