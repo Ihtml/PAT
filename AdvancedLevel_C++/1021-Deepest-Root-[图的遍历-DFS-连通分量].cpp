@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 int n, maxheight = 0;
-vector<vector<int>> v;
+vector<vector<int> > v;
 bool visit[10010];
 set<int> s;
 vector<int> temp;
@@ -45,6 +45,19 @@ int main() {
             cnt++;
         }
     }
-
+    if (cnt >= 2) {
+        printf("Error: %d components", cnt);
+    } else {
+        temp.clear();
+        maxheight = 0;
+        fill(visit, visit + 10010, false);
+        dfs(s1, 1);
+        for (int i = 0; i < temp.size(); i++) {
+            s.insert(temp[i]);
+        }
+        for (auto it = s.begin(); it != s.end(); it++) {
+            printf("%d\n", *it);
+        }
+    }
     return 0;
 }
