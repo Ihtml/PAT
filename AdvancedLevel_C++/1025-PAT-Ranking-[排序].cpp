@@ -6,7 +6,7 @@ struct student {
     int score, finrank, loca, locarank;
 };
 bool cmp(student a, student b) {
-    a.score != b.score ? a.score > b.score : a.no < b.no;
+    return a.score != b.score ? a.score > b.score : a.no < b.no;
 }
 int main() {
     int n, m;
@@ -24,10 +24,20 @@ int main() {
         fin.push_back(v[0]);
         for (int j = 1; j < m; j++) {
             v[j].locarank =
-                (v[j].score == v[j - 1].score) ? (v[j - 1].locarank) : j + 1;
+                (v[j].score == v[j - 1].score) ? (v[j - 1].locarank) : (j + 1);
             fin.push_back(v[j]);
         }
     }
     sort(fin.begin(), fin.end(), cmp);
+    fin[0].finrank = 1;
+    for (int j = 1; j < fin.size(); j++) {
+        fin[j].finrank =
+            (fin[j].score == fin[j - 1].score) ? (fin[j - 1].finrank) : (j + 1);
+    }
+    printf("%d\n", fin.size());
+    for (int i = 0; i < fin.size(); i++) {
+        printf("%013lld %d %d %d\n", fin[i].no, fin[i].finrank, fin[i].loca,
+               fin[i].locarank);
+    }
     return 0;
 }
