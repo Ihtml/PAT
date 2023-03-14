@@ -5,10 +5,26 @@ struct person {
     int arrive, start, time;
     bool vip;
 } tempperson;
+struct tablenode {
+    int end = 8 * 3600, num;
+    bool vip;
+};
+
 bool cmp1(person a, person b) {
     return a.arrive < b.arrive;
 }
+bool cmp2(person a, person b) {
+    return a.start < b.start;
+}
+vector<tablenode> table;
 vector<person> player;
+int findnextvip(int vipid) {
+    vipid++;
+    while (vipid < player.size() && player[vipid].vip == false) {
+        vipid++;
+    }
+    return vipid;
+}
 int main() {
     int n, k, m, viptable;
     scanf("%d", &n);
@@ -25,5 +41,25 @@ int main() {
         player.push_back(tempperson);
     }
     sort(player.begin(), player.end(), cmp1);
+    scanf("%d%d", &k, &m);
+    table.resize(k + 1);
+    for (int i = 0; i < m; i++) {
+        scanf("%d", &viptable);
+        table[viptable].vip = true;
+    }
+    int i = 0, vipid = -1;
+    vipid = findnextvip(vipid);
+    while (i < player.size()) {
+        int index = -1, minendtime = 999999999;
+        for (int j = 1; j <= k; j++) {
+            if (table[j].end < minendtime) {
+                minendtime = table[j].end;
+                index = j;
+            }
+        }
+        if (table[index].end >= 21 * 3600) {
+            break;
+        }
+    }
     return 0;
 }
