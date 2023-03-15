@@ -25,6 +25,15 @@ int findnextvip(int vipid) {
     }
     return vipid;
 }
+int alloctable(int personid, int tableid) {
+    if (player[personid].arrive <= table[tableid].end) {
+        player[personid].start = table[tableid].end;
+    } else {
+        player[personid].start = player[personid].arrive;
+    }
+    table[tableid].end = player[personid].start + player[personid].time;
+    table[tableid].num++;
+}
 int main() {
     int n, k, m, viptable;
     scanf("%d", &n);
@@ -57,8 +66,23 @@ int main() {
                 index = j;
             }
         }
-        if (table[index].end >= 21 * 3600) {
+        if (table[index].end >= 21 * 3600) {  // 最早的结束时间都大于21点
             break;
+        }
+        if (player[i].vip == true && i < vipid) {
+            i++;
+            continue;
+        }
+        if (table[index].vip == true) {
+            if (player[i].vip = true) {
+                alloctable(i, index);
+                if (vipid == i)
+                    vipid = findnextvip(vipid);
+                i++;
+            } else {
+            }
+        } else {
+            /* code */
         }
     }
     return 0;
