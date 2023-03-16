@@ -73,17 +73,53 @@ int main() {
             i++;
             continue;
         }
-        if (table[index].vip == true) {
-            if (player[i].vip = true) {
+        if (table[index].vip == true) {  // vip桌
+            if (player[i].vip = true) {  // 排队的第一个是VIP客户
                 alloctable(i, index);
-                if (vipid == i)
+                if (vipid == i) {
                     vipid = findnextvip(vipid);
+                }
                 i++;
-            } else {
+            } else {  //  排队的第一个是普通客户
+                if (vipid < player.size() &&
+                    player[vipid].arrive <=
+                        table[index].end) {  //  vip客户在队列中
+                    alloctable(vipid, index);
+                    vipid = findnextvip(vipid);
+                } else {
+                    alloctable(i, index);
+                    i++;
+                }
             }
-        } else {
-            /* code */
+        } else {                           // 普通桌
+            if (player[i].vip == false) {  // 排队队首是普通客户
+                alloctable(i, index);
+                i++;
+            } else {  // 排队队首是VIP客户
+                int vipindex = -1, minvipendtime = 999999999;
+                for (int j = 1; j <= k; j++) {
+                    if (table[j].vip == true && table[j].end < minvipendtime) {
+                        minvipendtime = table[j].end;
+                        vipindex = j;
+                    }
+                }
+                if (vipindex != -1 && player[i].arrive >= table[vipindex].end) {
+                    alloctable(i, vipindex);
+                    if (vipid == i) {
+                        vipid = findnextvip(vipid);
+                    }
+                    i++;
+
+                } else {
+                    alloctable(i, index);
+                    if (vipid == i) {
+                        vipid = findnextvip(vipid);
+                    }
+                    i++;
+                }
+            }
         }
     }
+    sort(player.begin(), player.end(), cmp2);
     return 0;
 }
