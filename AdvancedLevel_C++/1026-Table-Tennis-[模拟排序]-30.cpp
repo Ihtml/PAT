@@ -1,7 +1,7 @@
-#include <iostream>
-#include <vector>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
+#include <vector>
 using namespace std;
 struct person {
     int arrive, start, time;
@@ -9,7 +9,7 @@ struct person {
 } tempperson;
 struct tablenode {
     int end = 8 * 3600, num;
-    bool vip;
+    bool vip = 0;
 };
 
 bool cmp1(person a, person b) {
@@ -35,6 +35,7 @@ void alloctable(int personid, int tableid) {
     }
     table[tableid].end = player[personid].start + player[personid].time;
     table[tableid].num++;
+    // cout << personid + 1 << endl;
 }
 int main() {
     int n, k, m, viptable;
@@ -68,6 +69,14 @@ int main() {
                 index = j;
             }
         }
+        if (minendtime < player[i].arrive) {  // 修正：在人来之前有多个桌子空，选序号最小的
+            for (int j = 1; j <= k; j++) {
+                if (table[j].end < player[i].arrive) {
+                    index = j;
+                    break;
+                }
+            }
+        }
         if (table[index].end >= 21 * 3600) {  // 最早的结束时间都大于21点
             break;
         }
@@ -75,9 +84,11 @@ int main() {
             i++;
             continue;
         }
-        if (table[index].vip == true) {   // vip桌
+        if (table[index].vip == true) {  // vip桌
+            // cout << "viptable:" << index;
             if (player[i].vip == true) {  // 排队的第一个是VIP客户
                 alloctable(i, index);
+
                 if (vipid == i) {
                     vipid = findnextvip(vipid);
                 }
@@ -87,6 +98,7 @@ int main() {
                     player[vipid].arrive <=
                         table[index].end) {  //  vip客户在队列中
                     alloctable(vipid, index);
+
                     vipid = findnextvip(vipid);
                 } else {
                     alloctable(i, index);
@@ -95,6 +107,7 @@ int main() {
             }
         } else {                           // 普通桌
             if (player[i].vip == false) {  // 排队队首是普通客户
+                // cout << "table:" << index;
                 alloctable(i, index);
                 i++;
             } else {  // 排队队首是VIP客户
@@ -106,13 +119,16 @@ int main() {
                     }
                 }
                 if (vipindex != -1 && player[i].arrive >= table[vipindex].end) {
-                    alloctable(i, vipindex);  // 该VIP客户到达时，又有VIP桌子空出来了
+                    // cout << "tablevip:" << vipindex;
+                    alloctable(
+                        i, vipindex);  // 该VIP客户到达时，又有VIP桌子空出来了
                     if (vipid == i) {
                         vipid = findnextvip(vipid);
                     }
                     i++;
 
                 } else {
+                    // cout << "table:" << index;
                     alloctable(i, index);
                     if (vipid == i) {
                         vipid = findnextvip(vipid);
@@ -128,7 +144,7 @@ int main() {
                player[i].arrive % 3600 / 60, player[i].arrive % 60);
         printf("%02d:%02d:%02d ", player[i].start / 3600,
                player[i].start % 3600 / 60, player[i].start % 60);
-        printf("%.0f\n", round((player[i].start - player[i].arrive) / 60.0));
+        printf("%d\n", (player[i].start - player[i].arrive + 30) / 60);
     }
     for (int i = 1; i <= k; i++) {
         if (i != 1) {
