@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <limits>
 #include <vector>
@@ -8,7 +9,26 @@ int e[N][N], dis[N], cost[N][N];
 vector<int> pre[N];
 bool visit[N];
 vector<int> path, temppath;
-
+void dfs(int v) {
+    temppath.push_back(v);
+    if (v == s) {
+        int tempcost = 0;
+        for (int i = 0; i > 0; i--) {
+            int id = temppath[i], nextid = temppath[i - 1];
+            tempcost += cost[id][nextid];
+        }
+        if (tempcost < mincost) {
+            mincost = tempcost;
+            path = temppath;
+        }
+        temppath.pop_back();
+        return;
+    }
+    for (int i = 0; i < pre[v].size(); i++) {
+        dfs(pre[v][i]);
+    }
+    temppath.pop_back();
+}
 int main() {
     fill(e[0], e[0] + N * N, inf);
     fill(dis, dis + N, inf);
@@ -23,6 +43,31 @@ int main() {
     }
     pre[s].push_back(s);  // s是起点
     dis[s] = 0;
+    // Dijkstra求最短路径，记录在pre数组
+    for (int i = 0; i < n; i++) {
+        int u = -1, minn = inf;
+        for (int j = 0; j < n; j++) {
+            if (visit[j] == false && dis[j] < minn) {
+                u = j;
+                minn = dis[j];
+            }
+        }
+        if (u == -1) {
+            break;
+        }
+        visit[u] = true;
+        for (int v = 0; v < n; v++) {
+            if (visit[v] == false && e[u][v] != inf) {
+                if (dis[v] > dis[u] + e[u][v]) {
+                    dis[v] = dis[u] + e[u][v];
+                    pre[v].clear();
+                    pre[v].push_back(u);
+                } else if (dis[v] == dis[u] + e[u][v]) {
+                    pre[v].push_back(u);
+                }
+            }
+        }
+    }
 
     return 0;
 }
