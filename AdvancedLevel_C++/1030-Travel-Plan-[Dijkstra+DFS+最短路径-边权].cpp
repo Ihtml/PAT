@@ -1,19 +1,21 @@
+#include <limits.h>
 #include <algorithm>
 #include <iostream>
-#include <limits>
 #include <vector>
 using namespace std;
+// 求起点到终点的最短距离和花费，路径最短优先，距离一样时花费最少优先，输出完整路径
 const int N = 502, inf = INT_MAX;
 int n, m, s, d, mincost = inf;
 int e[N][N], dis[N], cost[N][N];
 vector<int> pre[N];
 bool visit[N];
 vector<int> path, temppath;
+// DFS求最短的mincost和路径path
 void dfs(int v) {
     temppath.push_back(v);
     if (v == s) {
         int tempcost = 0;
-        for (int i = 0; i > 0; i--) {
+        for (int i = temppath.size() - 1; i > 0; i--) {
             int id = temppath[i], nextid = temppath[i - 1];
             tempcost += cost[id][nextid];
         }
@@ -68,6 +70,10 @@ int main() {
             }
         }
     }
-
+    dfs(d);  // 从终点往起点DFS
+    for (int i = path.size() - 1; i >= 0; i--) {
+        printf("%d ", path[i]);
+    }
+    printf("%d %d", dis[d], mincost);
     return 0;
 }
