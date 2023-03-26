@@ -77,3 +77,14 @@ int main() {
     printf("%d %d", dis[d], mincost);
     return 0;
 }
+/* test case
+intput:
+4 5 0 3
+0 1 1 20
+1 3 2 30
+0 3 4 10
+0 2 2 20
+2 3 1 20
+output:
+0 2 3 3 40
+*/
