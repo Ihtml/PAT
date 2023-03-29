@@ -17,7 +17,8 @@ int main() {
     // davg:平均每单位油的行驶距离 n:汽车的站点数量
     scanf("%lf%lf%lf%d", &cmax, &d, &davg, &n);
     vector<station> sta(n + 1);
-    sta[0] = {0.0, d};
+    station a = {0.0, d};
+    sta[0] = a;
     for (int i = 1; i <= n; i++) {
         scanf("%lf%lf", &sta[i].price, &sta[i].dis);
     }
@@ -26,6 +27,7 @@ int main() {
            leftdis = 0.0;
     if (sta[0].dis != 0) {
         printf("The maximum travel distance = 0.00");
+        return 0;  // 这里必须要return 0；否则会继续往下执行
     } else {
         nowprice = sta[0].price;
     }
@@ -34,7 +36,7 @@ int main() {
         double minPriceDis = 0, minPrice = inf;
         int flag = 0;
         for (int i = 1; i <= n && sta[i].dis <= maxdis; i++) {
-            if (sta[i].dis <= nowdis) {
+            if (sta[i].dis <= nowdis) {  // 已经通过的点
                 continue;
             }
             if (sta[i].price < nowprice) {  // maxdis距离内有比当前站价格低的站
@@ -50,7 +52,18 @@ int main() {
                 minPriceDis = sta[i].dis;
             }
         }
+        if (flag == 0 && minPrice != inf) {  // maxdis距离内没有比当前站价格更低的站
+            totalPrice += (nowprice * (cmax - leftdis / davg));  // 带低价油过去
+            leftdis = cmax * davg - (minPriceDis - nowdis);  // 到站还剩的低价油可以走的距离
+            nowprice = minPrice;
+            nowdis = minPriceDis;
+        }
+        if (flag == 0 && minPrice == inf) {  // sta[i].dis > maxdis
+            nowdis += cmax * davg;
+            printf("The maximum travel distance = %.2f", nowdis);
+            return 0;
+        }
     }
-
+    printf("%.2f", totalPrice);
     return 0;
 }
