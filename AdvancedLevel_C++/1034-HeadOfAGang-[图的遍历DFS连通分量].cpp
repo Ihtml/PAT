@@ -16,7 +16,7 @@ int stoifunc(string s) {
 }
 const int N = 1010;
 int G[N][N], weight[N];
-bool vis[2010];
+bool vis[N];
 void dfs(int u, int& head, int& numMember, int& totalweight) {
     vis[u] = true;
     numMember++;
@@ -58,6 +58,9 @@ int main() {
         G[id2][id1] += w;
     }
     dfsTrave();
-
+    cout << ans.size() << endl;
+    for (auto it = ans.begin(); it != ans.end(); it++) {
+        cout << it->first << " " << it->second << endl;
+    }
     return 0;
 }
