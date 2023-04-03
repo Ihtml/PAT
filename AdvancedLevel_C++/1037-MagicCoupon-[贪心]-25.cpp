@@ -22,7 +22,19 @@ int main() {
     }
     sort(v1.begin(), v1.end());
     sort(v2.begin(), v2.end());
-
-    // TODO
+    // 负数相乘
+    while (p < m && q < n && v1[p] < 0 && v2[q] < 0) {
+        ans += v1[p] * v2[q];
+        p++;
+        q++;
+    }
+    p = m - 1, q = n - 1;
+    // 正数相乘
+    while (p >= 0 && q >= 0 && v1[p] > 0 && v2[q] > 0) {
+        ans += v1[p] * v2[q];
+        p--;
+        q--;
+    }
+    printf("%d", ans);
     return 0;
 }
