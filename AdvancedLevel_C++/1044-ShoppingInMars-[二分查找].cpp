@@ -8,7 +8,7 @@ Q:求⼀串的数字中连续的⼀段，使得这个连续的段内数字的和
 */
 vector<int> sum, resultArr;
 int n, m;
-void Func(int i, int& j, int& tempsum) {  // 二分查找
+void Func(int i, int& j, int& tempsum) {  // 二分查找, 确定j的位置
     int left = i, right = n;
     while (left < right) {
         int mid = (left + right) / 2;
@@ -35,6 +35,17 @@ int main() {
         if (tempsum > minans) {
             continue;
         }
+        if (tempsum >= m) {
+            if (tempsum < minans) {
+                resultArr.clear();
+                minans = tempsum;
+            }
+            resultArr.push_back(i);
+            resultArr.push_back(j);
+        }
+    }
+    for (int i = 0; i < resultArr.size(); i += 2) {
+        printf("%d-%d\n", resultArr[i], resultArr[i + 1]);
     }
     return 0;
 }
