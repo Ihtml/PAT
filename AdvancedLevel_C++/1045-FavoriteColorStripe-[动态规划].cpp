@@ -1,5 +1,8 @@
 /*
 一串数字序列中按给定数字和序列裁剪出最长的串
+按照最⻓下降⼦序列的方式做，对于从前到后的每一个i，如果它前⾯面的所有的j，找到了一个j的下标
+book[j]⽐book[i]小，此时就更新dp[i]使它 = max(dp[i], dp[j] +1);
+并且同时再每⼀次遍历完成一次j后更新maxn的值为长度的最⼤值，最后输出maxn
 */
 #include <iostream>
 #include <vector>
@@ -31,3 +34,11 @@ int main() {
     cout << maxn;
     return 0;
 }
+/*
+Sample Input:
+6
+523156
+12 2 2 4 1 5 5 6 3 1 1 5 6
+Sample Output:
+7
+*/
