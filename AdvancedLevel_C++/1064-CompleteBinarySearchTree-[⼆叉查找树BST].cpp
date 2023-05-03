@@ -13,11 +13,11 @@ void levelorder(int start, int end, int index) {
     }
     int n = end - start + 1;
     int l = log(n + 1) / log(2);  // ceil(log2(n+1))  除了最后一层的层数
-    int leave = n - (pow(2, l) -1);  // 最后一层的叶子节点数
-    int root = start +  (pow(2, l-1) - 1) + min((int)pow(2, l-1), leave); //
+    int leave = n - (pow(2, l) - 1);  // 最后一层的叶子节点数
+    int root = start + (pow(2, l - 1) - 1) + min((int)pow(2, l - 1), leave);  //
     level[index] = in[root];
-    levelorder(start, root -1, 2*index +1);
-    levelorder(root + 1, end, 2*index + 2);
+    levelorder(start, root - 1, 2 * index + 1);
+    levelorder(root + 1, end, 2 * index + 2);
 }
 int main() {
     int n;
@@ -28,6 +28,10 @@ int main() {
         scanf("%d", &in[i]);
     }
     sort(in.begin(), in.end());  // BST按从小到大排序就是中序遍历
-    levelorder(0, n-1, 0);
+    levelorder(0, n - 1, 0);
+    printf("%d", level[0]);
+    for (int i = 1; i < n; i++) {
+        printf("% d", level[i]);
+    }
     return 0;
 }
