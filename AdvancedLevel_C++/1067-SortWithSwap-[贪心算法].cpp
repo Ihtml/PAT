@@ -11,6 +11,18 @@ int main() {
         scanf("%d", &t);
         book[t] = i;  // 表示t数字当前正在占着哪一个位置。
     }
-    cout << n;
+    for (int i = 1; i < n; i++) {
+        if (book[i] != i) {
+            while (book[0] != 0) {  // book[0]是哨兵
+                swap(book[0], book[book[0]]);
+                cnt++;
+            }
+            if (book[i] != i) {
+                swap(book[0], book[i]);
+                cnt++;
+            }
+        }
+    }
+    cout << cnt;
     return 0;
 }
