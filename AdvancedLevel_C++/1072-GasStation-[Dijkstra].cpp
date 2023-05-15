@@ -1,8 +1,13 @@
+/*
+从m个加油站里面选取1个站点，让他离居民区的最近的人最远，并且没有超出服务范围ds之内。
+如果有很多个最远的加油站，输出距离所有居民区距离平均值最小的那个。
+如果平均值还是一样，就输出按照顺序排列加油站编号最小的那个。
+*/
 #include <limits.h>
 #include <algorithm>
 #include <iostream>
 using namespace std;
-const int inf = INT_MAX, N = 1005;
+const int inf = INT_MAX, N = 1015;
 int n, m, k, ds, station;
 int e[N][N], dis[N];
 bool visit[N];
@@ -14,5 +19,24 @@ int main() {
     fill(dis, dis + N, inf);
     scanf("%d%d%d%d", &n, &m, &k, &ds);
     string s, t;
+    for (int i = 0; i < k; i++) {
+        int tempdis;
+        cin >> s >> t >> tempdis;
+        int a, b;
+        if (s[0] == 'G') {
+            s = s.substr(1);
+            a = n + stoi(s);
+        } else {
+            a = stoi(s);
+        }
+        if (t[0] == 'G') {
+            t = t.substr(1);
+            b = n + stoi(t);
+        } else {
+            b = stoi(t);
+        }
+        e[a][b] = e[b][a] = min(tempdis, e[a][b]);  // 两点之间可能有多条路，只存储距离最短的路。
+    }
+
     return 0;
 }
