@@ -35,7 +35,22 @@ int main() {
         } else {
             b = stoi(t);
         }
-        e[a][b] = e[b][a] = min(tempdis, e[a][b]);  // 两点之间可能有多条路，只存储距离最短的路。
+        e[a][b] = e[b][a] = min(
+            tempdis, e[a][b]);  // 两点之间可能有多条路，只存储距离最短的路。
+    }
+    int ansid = -1;
+    double ansdis = -1, ansaver = inf;
+    for (int index = n + 1; index <= n + m; index++) {
+        double mindis = inf, aver = 0;
+        fill(dis, dis + N, inf);
+        fill(visit, visit + N, false);
+        dis[index] = 0;
+        // TODO Dijkstra
+    }
+    if (ansid == -1) {
+        printf("No Solution");
+    } else {
+        printf("G%d\n%0.1f %0.1f", ansid - n, ansdis, ansaver);
     }
 
     return 0;
