@@ -35,8 +35,8 @@ int main() {
         } else {
             b = stoi(t);
         }
-        e[a][b] = e[b][a] = min(
-            tempdis, e[a][b]);  // 两点之间可能有多条路，只存储距离最短的路。
+        e[a][b] = e[b][a] = min(tempdis, e[a][b]);
+        // 两点之间可能有多条路，只存储距离最短的路。
     }
     int ansid = -1;
     double ansdis = -1, ansaver = inf;
@@ -45,7 +45,47 @@ int main() {
         fill(dis, dis + N, inf);
         fill(visit, visit + N, false);
         dis[index] = 0;
-        // TODO Dijkstra
+        // Dijkstra
+        for (int i = 0; i < n + m; i++) {
+            int u = -1, minn = inf;
+            for (int j = 1; j <= n + m; j++) {
+                if (visit[j] == false && dis[j] < minn) {
+                    u = j;
+                    minn = dis[j];
+                }
+                if (u == -1) {
+                    break;
+                }
+                visit[u] = true;
+                for (int v = 1; v <= n + m; v++) {
+                    if (visit[v] == false && dis[v] > dis[u] + e[u][v]) {
+                        dis[v] = dis[u] + e[u][v];
+                    }
+                }
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            if (dis[i] > ds) {
+                mindis = -1;
+                break;
+            }
+            if (dis[i] < mindis) {
+                mindis = dis[i];
+            }
+            aver += 1.0 * dis[i];
+        }
+        if (mindis == -1) {
+            continue;
+        }
+        aver = aver / n;
+        if (mindis > ansdis) {
+            ansid = index;
+            ansdis = mindis;
+            ansaver = aver;
+        } else if (mindis == ansdis && aver < ansaver) {
+            ansid = index;
+            ansaver = aver;
+        }
     }
     if (ansid == -1) {
         printf("No Solution");
