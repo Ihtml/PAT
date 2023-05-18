@@ -3,19 +3,19 @@
 如果有很多个最远的加油站，输出距离所有居民区距离平均值最小的那个。
 如果平均值还是一样，就输出按照顺序排列加油站编号最小的那个。
 */
-#include <limits.h>
-#include <algorithm>
+#include <limits>
 #include <iostream>
+#include <algorithm>
+#include <string>
 using namespace std;
-const int inf = INT_MAX, N = 1015;
+const int inf = 999999999, N = 1020;
 int n, m, k, ds, station;
 int e[N][N], dis[N];
 bool visit[N];
 int main() {
     fill(e[0], e[0] + N * N, inf);
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++)
         e[i][i] = 0;
-    }
     fill(dis, dis + N, inf);
     scanf("%d%d%d%d", &n, &m, &k, &ds);
     string s, t;
@@ -45,7 +45,6 @@ int main() {
         fill(dis, dis + N, inf);
         fill(visit, visit + N, false);
         dis[index] = 0;
-        // Dijkstra
         for (int i = 0; i < n + m; i++) {
             int u = -1, minn = inf;
             for (int j = 1; j <= n + m; j++) {
@@ -53,15 +52,13 @@ int main() {
                     u = j;
                     minn = dis[j];
                 }
-                if (u == -1) {
-                    break;
-                }
-                visit[u] = true;
-                for (int v = 1; v <= n + m; v++) {
-                    if (visit[v] == false && dis[v] > dis[u] + e[u][v]) {
-                        dis[v] = dis[u] + e[u][v];
-                    }
-                }
+            }
+            if (u == -1)
+                break;
+            visit[u] = true;
+            for (int v = 1; v <= n + m; v++) {
+                if (visit[v] == false && dis[v] > dis[u] + e[u][v])
+                    dis[v] = dis[u] + e[u][v];
             }
         }
         for (int i = 1; i <= n; i++) {
@@ -69,14 +66,12 @@ int main() {
                 mindis = -1;
                 break;
             }
-            if (dis[i] < mindis) {
+            if (dis[i] < mindis)
                 mindis = dis[i];
-            }
             aver += 1.0 * dis[i];
         }
-        if (mindis == -1) {
+        if (mindis == -1)
             continue;
-        }
         aver = aver / n;
         if (mindis > ansdis) {
             ansid = index;
@@ -87,11 +82,9 @@ int main() {
             ansaver = aver;
         }
     }
-    if (ansid == -1) {
+    if (ansid == -1)
         printf("No Solution");
-    } else {
-        printf("G%d\n%0.1f %0.1f", ansid - n, ansdis, ansaver);
-    }
-
+    else
+        printf("G%d\n%.1f %.1f", ansid - n, ansdis, ansaver);
     return 0;
 }
