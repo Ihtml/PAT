@@ -35,9 +35,20 @@ int main() {
         if (score != -1) {
             v[id].isshown = true;
         } else if (v[id].score[num] == -1) {
-            v[id].score[num] = -2;
+            v[id].score[num] = -2;  // 编译都没通过
         }
     }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= k; j++) {
+            if (v[i].score[j] != -1 && v[i].score[j] != -2) {
+                v[i].total += v[i].score[j];
+            }
+            if (v[i].score[j] == full[j]) {
+                v[i].passnum++;
+            }
+        }
+    }
+    sort(v.begin() + 1, v.end(), cmp);
 
     return 0;
 }
