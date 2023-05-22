@@ -49,6 +49,26 @@ int main() {
         }
     }
     sort(v.begin() + 1, v.end(), cmp);
-
+    for (int i = 1; i <= n; i++) {
+        v[i].rank = i;
+        if (i != 1 && v[i].total == v[i - 1].total) {
+            v[i].rank = v[i - 1].rank;
+        }
+    }
+    for (int i = 1; i <= n; i++) {
+        if (v[i].isshown == true) {
+            printf("%d %05d %d", v[i].rank, v[i].id, v[i].total);
+            for (int j = 1; j <= k; j++) {
+                if (v[i].score[j] != -1 && v[i].score[j] != -2) {
+                    printf(" %d", v[i].score[j]);
+                } else if (v[i].score[j] == -1) {
+                    printf(" -");  // 一次都没有提交过
+                } else {
+                    printf(" 0");  // 提交的都没通过编译
+                }
+            }
+            printf("\n");
+        }
+    }
     return 0;
 }
