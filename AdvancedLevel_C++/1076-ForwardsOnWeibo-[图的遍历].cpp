@@ -1,16 +1,34 @@
 #include <iostream>
+#include <queue>
 #include <vector>
 using namespace std;
 int n, m, l, k;
 struct node {
     int id, layer;
 };
+vector<vector<int> > v;
 int bfs(node tnode) {
+    bool inq[1010] = {false};
+    queue<node> q;
+    q.push(tnode);
+    inq[tnode.id] = true;
     int cnt = 0;
-    // todo
+    while (!q.empty()) {
+        node top = q.front();
+        q.pop();
+        int topid = top.id;
+        for (int i = 0; i < v[topid].size(); i++) {
+            int nextid = v[topid][i];
+            if (inq[nextid] == false && top.layer < l) {
+                node next = {nextid, top.layer + 1};
+                q.push(next);
+                inq[next.id] = true;
+                cnt++;
+            }
+        }
+    }
     return cnt;
 }
-vector<vector<int> > v;
 int main() {
     scanf("%d %d", &n, &l);
     v.resize(n + 1);
@@ -27,7 +45,7 @@ int main() {
     for (int i = 0; i < k; i++) {
         scanf("%d", &tid);
         node tnode = {tid, 0};
-        // printf("%d\n", bfs(tnode));
+        printf("%d\n", bfs(tnode));
     }
 
     return 0;
