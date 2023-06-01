@@ -6,7 +6,12 @@ struct peo {
     int id, ge, gi, fin;
     vector<int> choice;
 };
-
+bool cmp(peo& a, peo& b) {
+    if (a.fin != b.fin) {
+        return a.fin > b.fin;
+    }
+    return a.ge > b.ge;
+}
 int main() {
     int n, m, k, quota[105];  // n-申请学生总数 m-学校数量 k-学生志愿数
     scanf("%d%d%d", &n, &m, &k);
@@ -22,6 +27,20 @@ int main() {
         stu[i].choice.resize(k);
         for (int j = 0; j < k; j++) {
             scanf("%d", &stu[i].choice[j]);
+        }
+    }
+    sort(stu.begin(), stu.end(), cmp);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < k; j++) {
+            int schid = stu[i].choice[j];
+            int lastindex = cnt[schid] - 1;
+            if (cnt[schid] < quota[schid] ||
+                (stu[i].fin == sch[schid][lastindex].fin) &&
+                    stu[i].ge == sch[schid][lastindex].ge) {
+                sch[schid].push_back(stu[i]);
+                cnt[schid]++;
+                break;
+            }
         }
     }
 
