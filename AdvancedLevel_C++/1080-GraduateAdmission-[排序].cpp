@@ -12,6 +12,9 @@ bool cmp(peo& a, peo& b) {
     }
     return a.ge > b.ge;
 }
+bool cmp2(peo& a, peo& b) {
+    return a.id < b.id;
+}
 int main() {
     int n, m, k, quota[105];  // n-申请学生总数 m-学校数量 k-学生志愿数
     scanf("%d%d%d", &n, &m, &k);
@@ -35,14 +38,22 @@ int main() {
             int schid = stu[i].choice[j];
             int lastindex = cnt[schid] - 1;
             if (cnt[schid] < quota[schid] ||
-                (stu[i].fin == sch[schid][lastindex].fin) &&
-                    stu[i].ge == sch[schid][lastindex].ge) {
+                (stu[i].fin == sch[schid][lastindex].fin && stu[i].ge == sch[schid][lastindex].ge)) {
                 sch[schid].push_back(stu[i]);
                 cnt[schid]++;
                 break;
             }
         }
     }
-
+    for (int i = 0; i < m; i++) {
+        sort(sch[i].begin(), sch[i].end(), cmp2);
+        for (int j = 0; j < cnt[i]; j++) {
+            if (j != 0) {
+                printf(" ");
+            }
+            printf("%d", sch[i][j].id);
+        }
+        printf("\n");
+    }
     return 0;
 }
