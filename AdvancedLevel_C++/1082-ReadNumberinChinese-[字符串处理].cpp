@@ -27,5 +27,20 @@ int main() {
     part[0] = n / 100000000;
     part[1] = (n % 100000000) / 10000;
     part[2] = n % 10000;
+    bool zero = false;  // 是否在非零数字前输出合适的ling
+    int printCnt = 0;  // 用于维护单词前没有空格，之后输入的单词都在前面加一个空格。
+    for (int i = 0; i < 3; i++) {
+        int temp = part[i];  // 三个部分，每部分内部的命名规则都一样，都是X千X百X十X
+        for (int j = 3; j >= 0; j--) {
+            int curPos = 8 - i * 4 + j;  // 当前数字的位置
+            if (curPos >= 9) {
+                continue;  // 最多九位数
+            }
+            int cur = (temp / J[j]) % 10;  // 取出当前数字
+            if (cur != 0) {
+            }
+        }
+    }
+
     return 0;
 }
