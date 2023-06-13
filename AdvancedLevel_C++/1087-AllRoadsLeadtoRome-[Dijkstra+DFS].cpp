@@ -16,6 +16,7 @@ int n, k;
 const int inf = 99999999;
 int e[205][205], weight[205], dis[205];
 bool visit[205];
+vector<int> pre[205], temppath, path;
 map<string, int> m;
 map<int, string> m2;
 int main() {
@@ -33,13 +34,36 @@ int main() {
     }
     string sa, sb;
     int temp;
-    for (int i = 0; i < k; i++)
-    {
+    for (int i = 0; i < k; i++) {
         cin >> sa >> sb >> temp;
-        e[m[sb]][m[sa]]  = e[m[sa]][m[sb]] = temp;
+        e[m[sb]][m[sa]] = e[m[sa]][m[sb]] = temp;
     }
     dis[1] = 0;
     // todo Dijkstra
-
+    for (int i = 0; i < n; i++) {
+        int u = -1, min = inf;
+        for (int j = 1; j <= n; j++) {
+            if (visit[j] == false && dis[j] < min) {
+                u = j;
+                min = dis[j];
+            }
+        }
+        if (u == -1) {
+            break;
+        }
+        visit[u] = true;
+        for (int v = 1; v <= n; v++) {
+            if (visit[v] == false && e[u][v] != inf) {
+                if (dis[u] + e[u][v] < dis[v]) {
+                    dis[v] = dis[u] + e[u][v];
+                    pre[v].clear();
+                    pre[v].push_back(u);
+                } else if (dis[v] == dis[u] + e[u][v]) {
+                    pre[v].push_back(u);
+                }
+            }
+        }
+    }
+    
     return 0;
 }
