@@ -91,6 +91,12 @@ int main() {
             }
         }
     }
-
+    int rom = m["ROM"];
+    dfs(rom);
+    printf("%d %d %d %d\n", cntpath, dis[rom], maxvalue, (int)maxavg);
+    for (int i = path.size() - 1; i >= 1; i--) {
+        cout << m2[path[i]] << "->";
+    }
+    cout << "ROM";
     return 0;
 }
