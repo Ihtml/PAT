@@ -19,6 +19,33 @@ bool visit[205];
 vector<int> pre[205], temppath, path;
 map<string, int> m;
 map<int, string> m2;
+int maxvalue = 0, mindepth, cntpath = 0;
+double maxavg;
+void dfs(int v) {
+    temppath.push_back(v);
+    if (v == 1) {
+        int value = 0;
+        for (int i = 0; i < temppath.size(); i++) {
+            value += weight[temppath[i]];
+        }
+        double tempavg = 1.0 * value / (temppath.size() - 1);
+        if (value > maxvalue) {
+            maxvalue = value;
+            maxavg = tempavg;
+            path = temppath;
+        } else if (value == maxvalue && tempavg > maxavg) {
+            maxavg = tempavg;
+            path = temppath;
+        }
+        temppath.pop_back();
+        cntpath++;
+        return;
+    }
+    for (int i = 0; i < pre[v].size(); i++) {
+        dfs(pre[v][i]);
+    }
+    temppath.pop_back();
+}
 int main() {
     fill(e[0], e[0] + 205 * 205, inf);
     fill(dis, dis + 205, inf);
@@ -28,7 +55,7 @@ int main() {
     m[s] = 1;
     m2[1] = s;
     for (int i = 1; i < n; i++) {
-        cin >> s >> weight[i + 2];
+        cin >> s >> weight[i + 1];
         m[s] = i + 1;
         m2[i + 1] = s;
     }
@@ -64,6 +91,6 @@ int main() {
             }
         }
     }
-    
+
     return 0;
 }
