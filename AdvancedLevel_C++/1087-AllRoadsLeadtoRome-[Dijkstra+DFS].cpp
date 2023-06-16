@@ -21,6 +21,7 @@ map<string, int> m;
 map<int, string> m2;
 int maxvalue = 0, mindepth, cntpath = 0;
 double maxavg;
+// DFS求最大happiness的路径path，并求出路径条数，最大happiness，最大average 
 void dfs(int v) {
     temppath.push_back(v);
     if (v == 1) {
@@ -52,8 +53,8 @@ int main() {
     cin >> n >> k;
     string s;
     cin >> s;
-    m[s] = 1;
-    m2[1] = s;
+    m[s] = 1;  // 存储字符串所对应的数字
+    m2[1] = s;  // 存储数字对应的字符串
     for (int i = 1; i < n; i++) {
         cin >> s >> weight[i + 1];
         m[s] = i + 1;
@@ -66,7 +67,7 @@ int main() {
         e[m[sb]][m[sa]] = e[m[sa]][m[sb]] = temp;
     }
     dis[1] = 0;
-    // todo Dijkstra
+    // Dijkstra算出所有最短路径的路线pre二维数组
     for (int i = 0; i < n; i++) {
         int u = -1, min = inf;
         for (int j = 1; j <= n; j++) {
