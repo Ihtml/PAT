@@ -12,6 +12,10 @@ struct node {
 };
 int m, n, l, t;
 int arr[1300][130][80];
+bool visit[1300][130][80];
+int bfs(int x, int y, int z){
+
+}
 int main() {
     scanf("%d %d %d %d", &m, &n, &l, &t);
     for (int i = 0; i < l; i++) {
@@ -22,4 +26,14 @@ int main() {
         }
     }
     int ans = 0;
+    for (int i = 0; i < l; i++) {
+        for (int j = 0; j < m; j++) {
+            for (int k = 0; k < n; k++) {
+                if (arr[j][k][i] == 1 && visit[j][k][i] == false) {
+                    ans += bfs(j, k, i);
+                }
+            }
+        }
+    }
+    return 0;
 }
