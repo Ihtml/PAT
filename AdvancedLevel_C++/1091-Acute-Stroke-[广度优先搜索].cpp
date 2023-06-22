@@ -11,8 +11,18 @@ struct node {
     int x, y, z;
 };
 int m, n, l, t;
+int X[6] = {1, 0, 0, -1, 0, 0};
+int Y[6] = {0, 1, 0, 0, -1, 0};
+int Z[6] = {0, 0, 1, 0, 0, -1};
 int arr[1300][130][80];
 bool visit[1300][130][80];
+bool judge(int x, int y, int z){
+    if(x < 0 || x >= m || y < 0 || y >= n || z < 0 || z >= l)
+        return false;
+    if(arr[x][y][z] == 0 || visit[x][y][z] == true)
+        return false;
+    return true;
+}
 int bfs(int x, int y, int z){
 
 }
