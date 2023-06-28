@@ -4,32 +4,39 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-vector<int> v[100];
-int book[100];
+vector<int> v[100];  // 存储树的邻接表
+int book[100];       // 记录每个层级的结点数量
+
 void dfs(int index, int level) {
-    book[level]++;
+    book[level]++;  // 当前层级结点数量加1
     for (int i = 0; i < v[index].size(); i++) {
-        dfs(v[index][i], level + 1);
+        dfs(v[index][i], level + 1);  // 递归遍历子结点，层级加1
     }
 }
+
 int main() {
     int n, m, a, k, c;
-    scanf("%d %d", &n, &m);  // n-成员总数 m-有孩子的结点的个数
+    scanf("%d %d", &n, &m);  // 输入成员总数n和有孩子的结点个数m
+
+    // 构建树的邻接表
     for (int i = 0; i < m; i++) {
         scanf("%d %d", &a, &k);
         for (int j = 0; j < k; j++) {
             scanf("%d", &c);
-            v[a].push_back(c);  // 孩子结点
+            v[a].push_back(c);  // 结点a的孩子结点为c
         }
     }
-    dfs(1, 1);
+
+    dfs(1, 1);  // 从根结点1开始进行深度优先搜索，初始层级为1
+
     int maxnum = 0, maxlevel = 1;
     for (int i = 1; i < 100; i++) {
         if (book[i] > maxnum) {
-            maxnum = book[i];
-            maxlevel = i;
+            maxnum = book[i];  // 更新最大结点数量
+            maxlevel = i;      // 更新对应的层级
         }
     }
-    printf("%d %d", maxnum, maxlevel);
+
+    printf("%d %d", maxnum, maxlevel);  // 输出最大结点数量和对应的层级
     return 0;
 }
