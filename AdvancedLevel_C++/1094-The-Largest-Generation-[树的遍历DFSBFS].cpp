@@ -2,8 +2,8 @@
 求结点个数最多的一层，
 根结点的层号为1，输出该层的结点个数以及层号*/
 #include <iostream>
-#include <vector>
 #include <queue>
+#include <vector>
 using namespace std;
 vector<int> v[100];  // 存储树的邻接表
 int book[100];       // 记录每个层级的结点数量
@@ -38,23 +38,27 @@ int main() {
         }
     }
 
-    // dfs
-    int level[100];
-    queue<int> q;
-    q.push(1);
-    level[1] = 1;
-    while (!q.empty())
-    {
-        int index = q.front();
-        q.pop();
-        book[level[index]]++;
-        for (int i = 0; i < v[index].size(); i++)
-        {
-            level[v[index][i]] = level[index] +1;
-            q.push(v[index][i]);
-        }
-    }
-    
+    // bfs
+    // int level[100];
+    // queue<int> q;
+    // q.push(1);
+    // level[1] = 1;
+    // while (!q.empty()) {
+    //     int index = q.front();
+    //     q.pop();
+    //     book[level[index]]++;
+    //     for (int i = 0; i < v[index].size(); i++) {
+    //         level[v[index][i]] = level[index] + 1;
+    //         q.push(v[index][i]);
+    //     }
+    // }
+    // int maxnum = 0, maxlevel = 1;
+    // for (int i = 0; i < 100; i++) {
+    //     if (book[i] > maxnum) {
+    //         maxnum = book[i];
+    //         maxlevel = i;
+    //     }
+    // }
 
     printf("%d %d", maxnum, maxlevel);  // 输出最大结点数量和对应的层级
     return 0;
