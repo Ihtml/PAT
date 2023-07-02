@@ -12,7 +12,13 @@ struct node {
     char id[10];
     int time, flag = 0;
 };
-
+bool cmp1(node a, node b) {
+    if (strcmp(a.id, b.id) != 0) {
+        return strcmp(a.id, b.id) < 0;
+    } else {
+        return a.time < b.time;
+    }
+}
 int main() {
     int n, k;
     scanf("%d %d", &n, &k);
@@ -25,6 +31,7 @@ int main() {
         record[i].time = temptime;
         record[i].flag = (temp == "in" ? 1 : -1);
     }
-
+    sort(record.begin(), record.end(), cmp1);
+    map<string, int> mapp;
     return 0;
 }
