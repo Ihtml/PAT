@@ -19,8 +19,11 @@ bool cmp1(node a, node b) {
         return a.time < b.time;
     }
 }
+bool cmp2(node a, node b) {
+    return a.time < b.time;
+}
 int main() {
-    int n, k;
+    int n, k, maxtime = -1;
     scanf("%d %d", &n, &k);
     vector<node> record(n), car;
     for (int i = 0; i < n; i++) {
@@ -33,5 +36,17 @@ int main() {
     }
     sort(record.begin(), record.end(), cmp1);
     map<string, int> mapp;
+    for (int i = 0; i < n - 1; i++) {
+        if (strcmp(record[i].id, record[i + 1].id) == 0 &&
+            record[i].flag == 1 && record[i + 1].flag == -1) {
+            car.push_back(record[i]);
+            car.push_back(record[i + 1]);
+            mapp[record[i].id] += (record[i + 1].time - record[i].time);
+            if (maxtime < mapp[record[i].id]) {
+                maxtime = mapp[record[i].id];
+            }
+        }
+    }
+    sort(car.begin(), car.end(), cmp2);
     return 0;
 }
