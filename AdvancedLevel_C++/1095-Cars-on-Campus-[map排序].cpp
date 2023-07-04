@@ -47,6 +47,16 @@ int main() {
             }
         }
     }
-    sort(car.begin(), car.end(), cmp2);
+    sort(car.begin(), car.end(), cmp2);  // car按时间排序
+    vector<int> cnt(n);
+    // cnt[i]表示在i下标的记录的时间点的时候车辆的数量。数量可以由前一个数量+当前车辆的flag得到。
+    for (int i = 0; i < car.size(); i++) {
+        if (i == 0) {
+            cnt[i] += car[i].flag;
+        } else {
+            cnt[i] = cnt[i - 1] + car[i].flag;
+        }
+    }
+
     return 0;
 }
