@@ -57,6 +57,21 @@ int main() {
             cnt[i] = cnt[i - 1] + car[i].flag;
         }
     }
+    for (int i = 0; i < k; i++) {
+        int h, m, s;
+        scanf("%d:%d:%d", &h, &m, &s);
+        int temptime = h * 3600 + m * 60 + s;
+        int j, tempindex = 0;
+        for (j = tempindex; j < car.size(); i++) {
+            if (car[j].time > temptime) {
+                printf("%d\n", cnt[j - 1]);
+                break;
+            } else if (j = car.size() - 1) {
+                printf("%d\n", cnt[j]);
+            }
+        }
+        tempindex = j;
+    }
 
     return 0;
 }
