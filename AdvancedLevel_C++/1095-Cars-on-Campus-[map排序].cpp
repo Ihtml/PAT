@@ -72,6 +72,11 @@ int main() {
         }
         tempindex = j;
     }
-
+    for (auto it = mapp.begin(); it != mapp.end(); it++) {
+        if (it->second == maxtime) {
+            printf("%s ", it->first.c_str());
+        }
+    }
+    printf("%02d:%02d:%02d", maxtime / 3600, (maxtime % 3600) / 60, maxtime % 60);
     return 0;
 }
