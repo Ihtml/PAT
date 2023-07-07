@@ -7,6 +7,8 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstring>
 using namespace std;
 struct node {
     char id[10];
@@ -23,8 +25,8 @@ bool cmp2(node a, node b) {
     return a.time < b.time;
 }
 int main() {
-    int n, k, maxtime = -1;
-    scanf("%d %d", &n, &k);
+    int n, k, maxtime = -1, tempindex = 0;
+    scanf("%d%d\n", &n, &k);
     vector<node> record(n), car;
     for (int i = 0; i < n; i++) {
         char temp[5];
@@ -32,7 +34,7 @@ int main() {
         scanf("%s %d:%d:%d %s\n", record[i].id, &h, &m, &s, temp);
         int temptime = h * 3600 + m * 60 + s;
         record[i].time = temptime;
-        record[i].flag = (temp == "in" ? 1 : -1);
+        record[i].flag = strcmp(temp, "in") == 0 ? 1 : -1;
     }
     sort(record.begin(), record.end(), cmp1);
     map<string, int> mapp;
@@ -61,12 +63,12 @@ int main() {
         int h, m, s;
         scanf("%d:%d:%d", &h, &m, &s);
         int temptime = h * 3600 + m * 60 + s;
-        int j, tempindex = 0;
-        for (j = tempindex; j < car.size(); i++) {
+        int j;
+        for (j = tempindex; j < car.size(); j++) {
             if (car[j].time > temptime) {
                 printf("%d\n", cnt[j - 1]);
                 break;
-            } else if (j = car.size() - 1) {
+            } else if (j == car.size() - 1) {
                 printf("%d\n", cnt[j]);
             }
         }
