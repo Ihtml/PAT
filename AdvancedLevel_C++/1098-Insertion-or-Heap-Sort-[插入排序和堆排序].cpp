@@ -1,6 +1,7 @@
 /*给出n和n个数的序列a和b，a为原始序列，b为排序其中的一个步骤，问b是a经过了堆排序还是插入排序的，并且输出它的下一步*/
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 int main() {
     int n, p = 2;
@@ -21,6 +22,9 @@ int main() {
     }
     if (p = n + 1) {
         printf("Insertion Sort\n");
+        // 插入排序的下一步就是把第一个不符合从小到大的顺序的那个元素插入到前面已排序的里面的合适的位置
+        // 那么只要对前几个已排序的+后面一位这个序列sort排序即可
+        sort(b.begin() + 1, b.begin() + index + 1);
     } else {
         printf("Heap Sort\n");
     }
