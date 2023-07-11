@@ -1,8 +1,22 @@
 /*给出n和n个数的序列a和b，a为原始序列，b为排序其中的一个步骤，问b是a经过了堆排序还是插入排序的，并且输出它的下一步*/
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
+void downAdjust(vector<int>& b, int low, int high) {
+    int i = 1, j = i * 2;
+    while (j < high) {
+        if (j + 1 <= high && b[j] < b[j + 1]) {
+            j = j + 1;
+        }
+        if (b[i] >= b[j]) {
+            break;
+        }
+        swap(b[i], b[j]);
+        i = j;
+        j = i * 2;
+    }
+}
 int main() {
     int n, p = 2;
     scanf("%d", &n);
@@ -27,6 +41,12 @@ int main() {
         sort(b.begin() + 1, b.begin() + index + 1);
     } else {
         printf("Heap Sort\n");
+        p = n;
+        while (p > 2 && b[p] >= b[1]) {
+            p--;
+        }
+        swap(b[1], b[p]);
+        // 调整堆
     }
 
     return 0;
