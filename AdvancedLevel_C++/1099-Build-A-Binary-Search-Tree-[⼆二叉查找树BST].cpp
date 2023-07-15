@@ -8,6 +8,16 @@ struct node {
     int data, l, r;
 } a[110];
 vector<int> v[100];
+void dfs(int root, int level) {
+    maxLevel = max(level, maxLevel);
+    if (a[root].l != -1) {
+        dfs(a[root].l, level + 1);
+    }
+    a[root] = {b[cnt++], a[root].l, a[root].r};
+    if (a[root].r != -1) {
+        dfs(a[root].r, level + 1);
+    }
+}
 int main() {
     cin >> n;
     for (int i = 0; i < n; i++) {
@@ -16,5 +26,7 @@ int main() {
     for (int i = 0; i < n; i++) {
         cin >> b[i];
     }
+    sort(b, b + n);
+    dfs(0, 0);
     return 0;
 }
