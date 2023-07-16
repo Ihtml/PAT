@@ -13,7 +13,8 @@ void dfs(int root, int level) {
     if (a[root].l != -1) {
         dfs(a[root].l, level + 1);
     }
-    a[root] = {b[cnt++], a[root].l, a[root].r};
+    // a[root] = {b[cnt++], a[root].l, a[root].r};
+    a[root].data = b[cnt++];
     if (a[root].r != -1) {
         dfs(a[root].r, level + 1);
     }
@@ -28,5 +29,21 @@ int main() {
     }
     sort(b, b + n);
     dfs(0, 0);
+    v[0].push_back(0);
+    // 层序遍历
+    for (int i = 0; i <= maxLevel; i++) {
+        for (int j = 0; j < v[i].size(); j++) {
+            if (i != 0) {
+                cout << " ";
+            }
+            cout << a[v[i][j]].data;
+            if (a[v[i][j]].l != -1) {
+                v[i + 1].push_back(a[v[i][j]].l);
+            }
+            if (a[v[i][j]].r != -1) {
+                v[i + 1].push_back(a[v[i][j]].r);
+            }
+        }
+    }
     return 0;
 }
