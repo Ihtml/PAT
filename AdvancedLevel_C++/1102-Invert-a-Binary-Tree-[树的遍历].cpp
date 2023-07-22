@@ -8,12 +8,17 @@ struct node {
 } a[100];
 vector<node> v1;
 // 已知根结点，用递归的方法可以把中序遍历的结果push_back到数组v1里面，
-// 直接输出就是中序，排序输出就是层序（排序方式，
+// 直接输出就是中序，排序输出就是层序
 void dfs(int root, int index, int level) {
     if (a[root].r != -1) {
         dfs(a[root].r, index * 2 + 2, level + 1);
     }
-    v1.push_back({root, 0, 0, index, level});
+    node obj;
+    obj.id = root;
+    obj.index = index;
+    obj.level = level;
+    // v1.push_back({root, 0, 0, index, level});
+    v1.push_back(obj);
     if (a[root].l != -1) {
         dfs(a[root].l, index * 2 + 1, level + 1);
     }
@@ -53,5 +58,20 @@ int main() {
     // 创建了一个名为v2的新向量容器，并将v1中的所有元素复制到v2中。是深拷贝
     vector<node> v2(v1);
     sort(v2.begin(), v2.end(), cmp);
+    // 输出反转后的二叉树的层序遍历
+    for (int i = 0; i < v2.size(); i++) {
+        if (i != 0) {
+            cout << " ";
+        }
+        cout << v2[i].id;
+    }
+    cout << endl;
+    // 输出反转后的二叉树的中序遍历
+    for (int i = 0; i < v1.size(); i++) {
+        if (i != 0) {
+            cout << " ";
+        }
+        cout << v1[i].id;
+    }
     return 0;
 }
