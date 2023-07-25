@@ -9,8 +9,8 @@
 using namespace std;
 int n, k, p, maxFacSum = -1;
 vector<int> v, ans, tempAns;
-// 回溯搜索函数
-void dfs(int index, int tempSum, int tempK, int facSum) {
+// 回溯搜索函数  facSum为当前因子的和
+void dfs(int index, int tempSum, int tempK, int facSum) { 
     // 达到选取k个数的条件
     if (tempK == k) {
         // 符合条件且总和为n，且p次方数的和大于之前的最大值
@@ -25,7 +25,8 @@ void dfs(int index, int tempSum, int tempK, int facSum) {
         // 当前数的p次方数值仍然小于等于n，继续搜索
         if (tempSum + v[index] <= n) {
             tempAns[tempK] = index;  // 将当前数的索引记录在tempAns中
-            dfs(index, tempSum + v[index], tempK + 1, facSum + index);  // 递归搜索下一个数
+            dfs(index, tempSum + v[index], tempK + 1,
+                facSum + index);  // 递归搜索下一个数
         }
         if (index == 1)
             return;  // 递归边界条件，避免无限循环
@@ -41,6 +42,16 @@ int main() {
         index++;
     }
     tempAns.resize(k);
-
+    dfs(v.size() - 1, 0, 0, 0);
+    if (maxFacSum == -1) {
+        printf("Impossible");
+        return 0;
+    }
+    printf("%d = ", n);
+    for (int i = 0; i < ans.size(); i++) {
+        if (i != 0)
+            printf(" + ");
+        printf("%d^%d", ans[i], p);
+    }
     return 0;
 }
