@@ -5,6 +5,17 @@
 #include <vector>
 using namespace std;
 vector<int> father, isRoot;
+int findFather(int x) {
+    int a = x;
+    while (x != father[x])
+        x = father[x];
+    while (a != father[a]) {
+        int z = a;
+        a = father[a];
+        father[z] = x;
+    }
+    return x;
+}
 int main() {
     int n, k, t, cnt = 0;
     // course[t]是喜欢t活动的人的编号
