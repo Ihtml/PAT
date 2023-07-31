@@ -16,6 +16,12 @@ int findFather(int x) {
     }
     return x;
 }
+void Union(int a, int b) {
+    int faA = findFather(a);
+    int faB = findFather(b);
+    if (faA != faB)
+        father[faA] = faB;
+}
 int main() {
     int n, k, t, cnt = 0;
     // course[t]是喜欢t活动的人的编号
