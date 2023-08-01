@@ -28,10 +28,18 @@ int main() {
     int course[100] = {0};
     scanf("%d", n);
     father.resize(n + 1);
-    father.resize(n + 1);
+    isRoot.resize(n + 1);
     for (int i = 0; i <= n; i++) {
         father[i] = i;
     }
-
+    for (int i = 1; i <= n; i++) {
+        scanf("%d:", &k);
+        for (int j = 0; j < k; j++) {
+            scanf("%d", &t);
+            if (course[t] == 0)
+                course[t] = i;
+            Union(i, findFather(course[t]));
+        }
+    }
     return 0;
 }
