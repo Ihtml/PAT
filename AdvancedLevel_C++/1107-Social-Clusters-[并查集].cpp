@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 vector<int> father, isRoot;
-int findFather(int x) {
+int findRoot(int x) {
     int a = x;
     while (x != father[x])
         x = father[x];
@@ -17,8 +17,8 @@ int findFather(int x) {
     return x;
 }
 void Union(int a, int b) {
-    int faA = findFather(a);
-    int faB = findFather(b);
+    int faA = findRoot(a);
+    int faB = findRoot(b);
     if (faA != faB)
         father[faA] = faB;
 }
@@ -26,7 +26,7 @@ int main() {
     int n, k, t, cnt = 0;
     // course[t]是喜欢t活动的人的编号
     int course[100] = {0};
-    scanf("%d", n);
+    scanf("%d", &n);
     father.resize(n + 1);
     isRoot.resize(n + 1);
     for (int i = 0; i <= n; i++) {
@@ -38,8 +38,17 @@ int main() {
             scanf("%d", &t);
             if (course[t] == 0)
                 course[t] = i;
-            Union(i, findFather(course[t]));
+            Union(i, findRoot(course[t]));
         }
     }
+    for (int i = 1; i <= n; i++) {
+        isRoot[(findRoot(i))]++;
+    }
+    for (int i = 1; i <= n; i++) {
+        if (isRoot[i] != 0) {
+            cnt++;
+        }
+    }
+    printf("%d\n", cnt);
     return 0;
 }
