@@ -5,6 +5,9 @@
 #include <vector>
 using namespace std;
 vector<int> father, isRoot;
+int cmp1(int a, int b) {
+    return a > b;
+}
 int findRoot(int x) {
     int a = x;
     while (x != father[x])
@@ -50,5 +53,12 @@ int main() {
         }
     }
     printf("%d\n", cnt);
+    sort(isRoot.begin(), isRoot.end(), cmp1);
+    for (int i = 0; i < cnt; i++) {
+        printf("%d", isRoot[i]);
+        if (i != cnt - 1) {
+            printf(" ");
+        }
+    }
     return 0;
 }
