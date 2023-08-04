@@ -8,6 +8,7 @@ vector<int> father, isRoot;
 int cmp1(int a, int b) {
     return a > b;
 }
+// 寻找节点的根（带路径压缩）
 int findRoot(int x) {
     int a = x;
     while (x != father[x])
@@ -28,10 +29,11 @@ void Union(int a, int b) {
 int main() {
     int n, k, t, cnt = 0;
     // course[t]是喜欢t活动的人的编号
-    int course[100] = {0};
+    int course[1005] = {0};
     scanf("%d", &n);
     father.resize(n + 1);
     isRoot.resize(n + 1);
+    // 初始化每个人为自己的根节点
     for (int i = 0; i <= n; i++) {
         father[i] = i;
     }
