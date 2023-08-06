@@ -10,5 +10,24 @@ struct node {
 int maxn = -1, ans;
 int main() {
     int n, root=0, have[100] = {0};
+    for (int i = 0; i < n; i++) {
+        string l, r;
+        cin >> l >> r;
+        if (l == "-") {
+            a[i].l = -1;
+        } else {
+            a[i].l = stoi(l);
+            have[stoi(l)] = 1;
+        }
+        if (r == "-") {
+            a[i].r = -1;
+        } else {
+            a[i].r = stoi(r);
+            have[stoi(r)] = 1;
+        }
+    }
+    // 找到根节点
+    while (have[root] != 0)
+        root++;
     cin >> n;
 }
