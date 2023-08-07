@@ -8,6 +8,14 @@ struct node {
     int l, r;
 } a[100];
 int maxn = -1, ans;
+void dfs(int root, int index) {
+    if(index > maxn) {
+        maxn = index;
+        ans = root;
+    }
+    if(a[root].l != -1) dfs(a[root].l, index * 2);
+    if(a[root].r != -1) dfs(a[root].r, index * 2 + 1);
+}
 int main() {
     int n, root=0, have[100] = {0};
     for (int i = 0; i < n; i++) {
@@ -29,5 +37,6 @@ int main() {
     // 找到根节点
     while (have[root] != 0)
         root++;
+    dfs(root, 1);
     cin >> n;
 }
