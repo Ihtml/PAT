@@ -8,7 +8,9 @@ struct node {
     int l, r;
 } a[100];
 int maxn = -1, ans;
+// 深度优先搜索，计算最大下标值和对应的结点
 void dfs(int root, int index) {
+    // 如果当前的索引值比最大下标值还要大，则更新最大下标值和对应的结点
     if(index > maxn) {
         maxn = index;
         ans = root;
@@ -18,6 +20,7 @@ void dfs(int root, int index) {
 }
 int main() {
     int n, root=0, have[100] = {0};
+    cin >> n;
     for (int i = 0; i < n; i++) {
         string l, r;
         cin >> l >> r;
@@ -38,5 +41,9 @@ int main() {
     while (have[root] != 0)
         root++;
     dfs(root, 1);
-    cin >> n;
+    if (maxn == n)
+        cout << "YES " << ans;
+    else
+        cout << "NO " << root;
+    return 0;
 }
