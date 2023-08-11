@@ -6,7 +6,9 @@ Q:给一张地图，两个结点中既有距离也有时间，有的单行有的
 #include <vector>
 using namespace std;
 const int inf = 999999999;
-int dis[510], Time[510], e[510][510], w[510][510], weight[510];
+int dis[510], Time[510], e[510][510], w[510][510], dispre[510], Timepre[510],
+    weight[510], NodeNum[510];
+;
 bool visit[510];
 vector<int> dispath, Timepath, temppath;
 int st, fin, minnode = inf;
@@ -26,6 +28,37 @@ int main() {
         if (flag != 1) {
             e[b][a] = len;
             w[b][a] = t;
+        }
+    }
+    scanf("%d %d", &st, &fin);
+    dis[st] = 0;
+    for (int i = 0; i < n; i++) {
+        dispre[i] = i;
+    }
+    for (int i = 0; i < n; i++) {
+        int u = -1, minn = inf;
+        for (int j = 0; j < n; j++) {
+            if (visit[j] == false && dis[j] < minn) {
+                u = j;
+                minn = dis[j];
+            }
+        }
+        if (u == -1) {
+            break;
+        }
+        visit[u] = true;
+        for (int v = 0; v < n; v++) {
+            if (visit[v] == false && e[u][v] != inf) {
+                if (e[u][v] + dis[u] < dis[v]) {
+                    dis[v] = e[u][v] + dis[v];
+                    dispre[v] = u;
+                    weight[v] = weight[u] + w[u][v];
+                } else if (e[u][v] + dis[u] == dis[v] &&
+                           weight[v] > weight[u] + w[u][v]) {
+                    weight[v] = weight[u] + w[u][v];
+                    dispre[v] = u;
+                }
+            }
         }
     }
 
