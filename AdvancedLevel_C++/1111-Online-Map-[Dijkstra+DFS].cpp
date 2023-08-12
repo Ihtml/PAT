@@ -12,6 +12,20 @@ int dis[510], Time[510], e[510][510], w[510][510], dispre[510], Timepre[510],
 bool visit[510];
 vector<int> dispath, Timepath, temppath;
 int st, fin, minnode = inf;
+void dfsdispath(int v) {
+    dispath.push_back(v);
+    if (v == st) {
+        return;
+    }
+    dfsdispath(dispre[v]);
+}
+void dfsTimepath(int v) {
+    Timepath.push_back(v);
+    if (v == st) {
+        return;
+    }
+    dfsTimepath(Timepre[v]);
+}
 int main() {
     fill(dis, dis + 510, inf);
     fill(Time, Time + 510, inf);
