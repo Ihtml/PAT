@@ -75,6 +75,36 @@ int main() {
             }
         }
     }
-
+    dfsdispath(fin);
+    Time[st] = 0;
+    fill(visit, visit + 510, false);
+    for (int i = 0; i < n; i++) {
+        int u = -1, minn = inf;
+        for (int j = 0; j < n; j++) {
+            if (visit[j] == false && Time[j] < minn) {
+                u = j;
+                minn = Time[j];
+            }
+        }
+        if (u == -1) {
+            break;
+        }
+        visit[u] = true;
+        for (int v = 0; v < n; v++) {
+            if (visit[v] == false && w[u][v] != inf) {
+                if (Time[u] + w[u][v] < Time[v]) {
+                    Time[v] = Time[u] + w[u][v];
+                    Timepre[v] = u;
+                    // NodeNum数组，记录在时间最短的情况下，到达此节点所需的节点数量。
+                    NodeNum[v] = NodeNum[u] + 1;  
+                } else if (Time[u] + w[u][v] ==
+                           Time[v && NodeNum[u] + 1 < NodeNum[v]]) {
+                    Timepre[v] = u;
+                    NodeNum[v] = NodeNum[u] + 1;
+                }
+            }
+        }
+    }
+    dfsTimepath(fin);
     return 0;
 }
