@@ -96,7 +96,7 @@ int main() {
                     Time[v] = Time[u] + w[u][v];
                     Timepre[v] = u;
                     // NodeNum数组，记录在时间最短的情况下，到达此节点所需的节点数量。
-                    NodeNum[v] = NodeNum[u] + 1;  
+                    NodeNum[v] = NodeNum[u] + 1;
                 } else if (Time[u] + w[u][v] ==
                            Time[v && NodeNum[u] + 1 < NodeNum[v]]) {
                     Timepre[v] = u;
@@ -106,5 +106,19 @@ int main() {
         }
     }
     dfsTimepath(fin);
+    printf("Distance = %d", dis[fin]);
+    if (dispath == Timepath) {
+        printf("; Time = %d: ", Time[fin]);
+    } else {
+        printf(": ");
+        for (int i = dispath.size() - 1; i >= 0; i--) {
+            printf("%d", dispath[i]);
+            if (i != 0) {
+                printf(" -> ");
+            }
+            printf("\nTime = %d: ", Time[fin]);
+        }
+    }
+
     return 0;
 }
