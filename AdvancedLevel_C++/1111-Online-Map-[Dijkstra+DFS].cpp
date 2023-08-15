@@ -34,7 +34,7 @@ int main() {
     fill(w[0], w[0] + 510 * 510, inf);
     int n, m;
     scanf("%d %d", &n, &m);
-    int a, b, flag = 1, len, t;
+    int a, b, flag , len, t;
     for (int i = 0; i < m; i++) {
         scanf("%d %d %d %d %d", &a, &b, &flag, &len, &t);
         e[a][b] = len;
@@ -64,7 +64,7 @@ int main() {
         for (int v = 0; v < n; v++) {
             if (visit[v] == false && e[u][v] != inf) {
                 if (e[u][v] + dis[u] < dis[v]) {
-                    dis[v] = e[u][v] + dis[v];
+                    dis[v] = e[u][v] + dis[u];
                     dispre[v] = u;
                     weight[v] = weight[u] + w[u][v];
                 } else if (e[u][v] + dis[u] == dis[v] &&
@@ -98,7 +98,7 @@ int main() {
                     // NodeNum数组，记录在时间最短的情况下，到达此节点所需的节点数量。
                     NodeNum[v] = NodeNum[u] + 1;
                 } else if (Time[u] + w[u][v] ==
-                           Time[v && NodeNum[u] + 1 < NodeNum[v]]) {
+                           Time[v] && NodeNum[u] + 1 < NodeNum[v]) {
                     Timepre[v] = u;
                     NodeNum[v] = NodeNum[u] + 1;
                 }
@@ -113,12 +113,15 @@ int main() {
         printf(": ");
         for (int i = dispath.size() - 1; i >= 0; i--) {
             printf("%d", dispath[i]);
-            if (i != 0) {
+            if (i != 0)
                 printf(" -> ");
-            }
-            printf("\nTime = %d: ", Time[fin]);
         }
+        printf("\nTime = %d: ", Time[fin]);
     }
-
+    for (int i = Timepath.size() - 1; i >= 0; i--) {
+        printf("%d", Timepath[i]);
+        if (i != 0)
+            printf(" -> ");
+    }
     return 0;
 }
