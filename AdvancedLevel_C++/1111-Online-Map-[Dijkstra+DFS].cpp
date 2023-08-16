@@ -1,5 +1,8 @@
 /*
 Q:给一张地图，两个结点中既有距离也有时间，有的单行有的双向，要求根据地图推荐两条路线：一条是最快到达路线，一条是最短距离的路线。
+A:用两个Dijkstra。一个求最短路径（如果相同求时间最短的那条），一个求最快路径（如果相同求结点数最小的那条）
+求最快路径时候要多维护一个NodeNum数组，记录在时间最短的情况下，到达此节点所需的节点数量;
+Time数组更新的条件是，时间更短，时间相同的时候，如果此节点能让到达次节点是数目也变小，则更新Timepre，和NodeNum数组
 */
 #include <algorithm>
 #include <iostream>
@@ -39,7 +42,7 @@ int main() {
         scanf("%d %d %d %d %d", &a, &b, &flag, &len, &t);
         e[a][b] = len;
         w[a][b] = t;
-        if (flag != 1) {
+        if (flag != 1) {  // 双向边
             e[b][a] = len;
             w[b][a] = t;
         }
@@ -47,14 +50,14 @@ int main() {
     scanf("%d %d", &st, &fin);
     dis[st] = 0;
     for (int i = 0; i < n; i++) {
-        dispre[i] = i;
+        dispre[i] = i;  // 初始化距离前驱数组
     }
     for (int i = 0; i < n; i++) {
         int u = -1, minn = inf;
         for (int j = 0; j < n; j++) {
             if (visit[j] == false && dis[j] < minn) {
                 u = j;
-                minn = dis[j];
+                minn = dis[j];  // 更新最小距离和节点
             }
         }
         if (u == -1) {
