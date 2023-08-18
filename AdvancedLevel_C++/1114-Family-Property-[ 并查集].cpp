@@ -9,6 +9,17 @@ Q:给定每个人的家庭成员和其自己名下的房产，请你统计出每
 #include <iostream>
 using namespace std;
 const int N = 10000;
+struct DATA {
+    int id, rid, mid, num, area;
+    int cid[10];
+}data[1005];
+
+struct node {
+    int id, people;
+    double num, area;
+    bool falg = false;
+} ans[N];
+
 int root[N];
 bool visit[N];
 int main() {
@@ -17,6 +28,9 @@ int main() {
     for (int i = 0; i < N; i++) {
         root[i] = i;
     }
-
+    for (int i = 0; i < n; i++) {
+        scanf("%d %d %d %d", &data[i].id, &data[i].fid, &data[i].mid, &k);
+        visit[data[i].id] = true;
+    }
     return 0;
 }
