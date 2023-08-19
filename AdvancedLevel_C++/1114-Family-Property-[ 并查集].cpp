@@ -12,7 +12,7 @@ const int N = 10000;
 struct DATA {
     int id, rid, mid, num, area;
     int cid[10];
-}data[1005];
+} data[1005];
 
 struct node {
     int id, people;
@@ -22,6 +22,21 @@ struct node {
 
 int root[N];
 bool visit[N];
+int find(int x) {
+    while (x != root[x]) {
+        x = root[x];
+    }
+    return x;
+}
+void Union(int a, int b) {
+    int faA = find(a);
+    int faB = find(b);
+    if (faA > faB) {
+        root[faA] = faB;
+    } else if (faA < faB) {
+        root[faB] = faA;
+    }
+}
 int main() {
     int n, k, cnt = 0;
     cin >> n;
@@ -29,8 +44,11 @@ int main() {
         root[i] = i;
     }
     for (int i = 0; i < n; i++) {
-        scanf("%d %d %d %d", &data[i].id, &data[i].fid, &data[i].mid, &k);
+        scanf("%d %d %d %d", &data[i].id, &data[i].rid, &data[i].mid, &k);
         visit[data[i].id] = true;
+        if (data[i].rid != -1) {
+            visit[data[i].rid] = true;
+        }
     }
     return 0;
 }
