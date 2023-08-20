@@ -10,14 +10,14 @@ Q:给定每个人的家庭成员和其自己名下的房产，请你统计出每
 using namespace std;
 const int N = 10000;
 struct DATA {
-    int id, rid, mid, num, area;
+    int id, fid, mid, num, area;
     int cid[10];
-} data[1005];
+} pdata[1005];
 
 struct node {
     int id, people;
     double num, area;
-    bool falg = false;
+    bool flag = false;
 } ans[N];
 
 int root[N];
@@ -44,11 +44,27 @@ int main() {
         root[i] = i;
     }
     for (int i = 0; i < n; i++) {
-        scanf("%d %d %d %d", &data[i].id, &data[i].rid, &data[i].mid, &k);
-        visit[data[i].id] = true;
-        if (data[i].rid != -1) {
-            visit[data[i].rid] = true;
+        // pdata[i].id: 当前人的ID
+        // pdata[i].fid: 当前人的父亲的ID
+        // pdata[i].mid: 当前人的母亲的ID
+        // k: 当前人的子女数量（孩子的个数）
+        scanf("%d %d %d %d", &pdata[i].id, &pdata[i].fid, &pdata[i].mid, &k);
+        visit[pdata[i].id] = true;
+        if (pdata[i].fid != -1) {
+            visit[pdata[i].fid] = true;
+            Union(pdata[i].fid, pdata[i].id);
         }
+        if (pdata[i].mid != -1) {
+            visit[pdata[i].mid] = true;
+            Union(pdata[i].mid, pdata[i].id);
+        }
+        for (int j = 0; j < k; j++) {
+            scanf("%d", &pdata[i].cid[j]);
+            visit[pdata[i].cid[j]] = true;
+            Union(pdata[i].cid[j], pdata[i].id);
+        }
+        scanf("%d %d", &pdata[i].num, &pdata[i].area);
+        
     }
     return 0;
 }
