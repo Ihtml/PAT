@@ -64,7 +64,21 @@ int main() {
             Union(pdata[i].cid[j], pdata[i].id);
         }
         scanf("%d %d", &pdata[i].num, &pdata[i].area);
-        
+        for (int i = 0; i < n; i++) {
+            int id = find(pdata[i].id);
+            ans[id].id = id;
+            ans[id].num += pdata[i].num;
+            ans[id].area += pdata[i].area;
+            ans[id].flag = true;
+        }
+        for (int i = 0; i < 10000; i++) {
+            if (visit[i]) {
+                ans[find(i)].people++;
+            }
+            if (ans[i].flag) {
+                cnt++;
+            }
+        }
     }
     return 0;
 }
