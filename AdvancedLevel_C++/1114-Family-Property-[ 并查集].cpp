@@ -37,6 +37,13 @@ void Union(int a, int b) {
         root[faB] = faA;
     }
 }
+void cmp1(node a, node b) {
+    if (a.area != b.area) {
+        return a.area > b.area;
+    } else {
+        return a.id < b.id;
+    }
+}
 int main() {
     int n, k, cnt = 0;
     cin >> n;
@@ -79,6 +86,17 @@ int main() {
                 cnt++;
             }
         }
+        for (int i = 0; i < 10000; i++) {
+            if (ans[i].flag) {
+                ans[i].num = (double)(ans[i].num * 1.0 / ans[i].people);
+                ans[i].area = (double)(ans[i].area * 1.0 / ans[i].people);
+            }
+        }
+        sort(ans, ans + 10000, cmp1);
+        printf("%d\n", cnt);
+        for (int i = 0; i < cnt; i++)
+            printf("%04d %d %.3f %.3f\n", ans[i].id, ans[i].people, ans[i].num,
+                   ans[i].area);
     }
     return 0;
 }
