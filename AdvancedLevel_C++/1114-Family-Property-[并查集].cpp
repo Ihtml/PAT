@@ -37,7 +37,7 @@ void Union(int a, int b) {
         root[faB] = faA;
     }
 }
-void cmp1(node a, node b) {
+int cmp1(node a, node b) {
     if (a.area != b.area) {
         return a.area > b.area;
     } else {
@@ -71,32 +71,32 @@ int main() {
             Union(pdata[i].cid[j], pdata[i].id);
         }
         scanf("%d %d", &pdata[i].num, &pdata[i].area);
-        for (int i = 0; i < n; i++) {
-            int id = find(pdata[i].id);
-            ans[id].id = id;
-            ans[id].num += pdata[i].num;
-            ans[id].area += pdata[i].area;
-            ans[id].flag = true;
-        }
-        for (int i = 0; i < 10000; i++) {
-            if (visit[i]) {
-                ans[find(i)].people++;
-            }
-            if (ans[i].flag) {
-                cnt++;
-            }
-        }
-        for (int i = 0; i < 10000; i++) {
-            if (ans[i].flag) {
-                ans[i].num = (double)(ans[i].num * 1.0 / ans[i].people);
-                ans[i].area = (double)(ans[i].area * 1.0 / ans[i].people);
-            }
-        }
-        sort(ans, ans + 10000, cmp1);
-        printf("%d\n", cnt);
-        for (int i = 0; i < cnt; i++)
-            printf("%04d %d %.3f %.3f\n", ans[i].id, ans[i].people, ans[i].num,
-                   ans[i].area);
     }
+    for (int i = 0; i < n; i++) {
+        int id = find(pdata[i].id);
+        ans[id].id = id;
+        ans[id].num += pdata[i].num;
+        ans[id].area += pdata[i].area;
+        ans[id].flag = true;
+    }
+    for (int i = 0; i < 10000; i++) {
+        if (visit[i]) {
+            ans[find(i)].people++;
+        }
+        if (ans[i].flag) {
+            cnt++;
+        }
+    }
+    for (int i = 0; i < 10000; i++) {
+        if (ans[i].flag) {
+            ans[i].num = (double)(ans[i].num * 1.0 / ans[i].people);
+            ans[i].area = (double)(ans[i].area * 1.0 / ans[i].people);
+        }
+    }
+    sort(ans, ans + 10000, cmp1);
+    printf("%d\n", cnt);
+    for (int i = 0; i < cnt; i++)
+        printf("%04d %d %.3f %.3f\n", ans[i].id, ans[i].people, ans[i].num,
+               ans[i].area);
     return 0;
 }
