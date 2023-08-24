@@ -20,8 +20,8 @@ struct node {
     bool flag = false;
 } ans[N];
 
-int root[N];
-bool visit[N];
+int root[N];  // 用于并查集的根节点数组
+bool visit[N]; // 记录某个人是否被访问过
 int find(int x) {
     while (x != root[x]) {
         x = root[x];
@@ -48,7 +48,7 @@ int main() {
     int n, k, cnt = 0;
     cin >> n;
     for (int i = 0; i < N; i++) {
-        root[i] = i;
+        root[i] = i; // 初始化并查集根节点数组
     }
     for (int i = 0; i < n; i++) {
         // pdata[i].id: 当前人的ID
@@ -56,22 +56,27 @@ int main() {
         // pdata[i].mid: 当前人的母亲的ID
         // k: 当前人的子女数量（孩子的个数）
         scanf("%d %d %d %d", &pdata[i].id, &pdata[i].fid, &pdata[i].mid, &k);
-        visit[pdata[i].id] = true;
+        visit[pdata[i].id] = true;  // 标记当前人已被访问
+        // 如果有父亲，则将当前人与父亲合并
         if (pdata[i].fid != -1) {
             visit[pdata[i].fid] = true;
             Union(pdata[i].fid, pdata[i].id);
         }
+        // 如果有母亲，则将当前人与母亲合并
         if (pdata[i].mid != -1) {
             visit[pdata[i].mid] = true;
             Union(pdata[i].mid, pdata[i].id);
         }
+         // 处理孩子的信息，将孩子与当前人合并
         for (int j = 0; j < k; j++) {
             scanf("%d", &pdata[i].cid[j]);
             visit[pdata[i].cid[j]] = true;
             Union(pdata[i].cid[j], pdata[i].id);
         }
+        // 输入人口数量和面积
         scanf("%d %d", &pdata[i].num, &pdata[i].area);
     }
+    // 统计每个社交网络的人口数量和面积
     for (int i = 0; i < n; i++) {
         int id = find(pdata[i].id);
         ans[id].id = id;
@@ -79,6 +84,7 @@ int main() {
         ans[id].area += pdata[i].area;
         ans[id].flag = true;
     }
+    // 统计有效社交网络数量
     for (int i = 0; i < 10000; i++) {
         if (visit[i]) {
             ans[find(i)].people++;
@@ -87,6 +93,7 @@ int main() {
             cnt++;
         }
     }
+    // 计算每个社交网络的平均人口数量和平均面积
     for (int i = 0; i < 10000; i++) {
         if (ans[i].flag) {
             ans[i].num = (double)(ans[i].num * 1.0 / ans[i].people);
