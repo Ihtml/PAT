@@ -9,10 +9,28 @@ struct node {
     int v;
     struct node *left, *right;
 };
+node* build(node* root, int v) {
+    if (root = NULL) {
+        root = new node();
+        root->v = v;
+        root->left = root->right = NULL;
+    } else if (v <= root->v) {
+        root->left = build(root->left, v);
+    } else {
+        root->right = build(root->right, v);
+    }
+    return root;
+}
 vector<int> num(1000);
-int main(){
+int maxdepth = -1;
+int main() {
     int n, t;
     cin >> n;
-    node *root = NULL;
+    node* root = NULL;
+    for (int i = 0; i < n; i++) {
+        cin >> t;
+        root = build(root, t);
+    }
+
     return 0;
 }
