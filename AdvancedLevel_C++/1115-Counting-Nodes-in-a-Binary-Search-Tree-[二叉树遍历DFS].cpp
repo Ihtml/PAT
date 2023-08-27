@@ -23,6 +23,15 @@ node* build(node* root, int v) {
 }
 vector<int> num(1000);
 int maxdepth = -1;
+void dfs(node* root, int depth) {
+    if (root == NULL) {
+        maxdepth = max(depth, maxdepth);
+        return;
+    }
+    num[depth]++;
+    dfs(root->left, depth + 1);
+    dfs(root->right, depth + 1);
+}
 int main() {
     int n, t;
     cin >> n;
@@ -31,6 +40,6 @@ int main() {
         cin >> t;
         root = build(root, t);
     }
-
+    dfs(root, 0);
     return 0;
 }
