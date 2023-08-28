@@ -10,7 +10,7 @@ struct node {
     struct node *left, *right;
 };
 node* build(node* root, int v) {
-    if (root = NULL) {
+    if (root == NULL) {
         root = new node();
         root->v = v;
         root->left = root->right = NULL;
@@ -41,5 +41,7 @@ int main() {
         root = build(root, t);
     }
     dfs(root, 0);
+    int n1 = num[maxdepth -1], n2 = num[maxdepth -2], n3 = n1 + n2;
+    cout << n1 << " + " << n2 << " = " << n3 << endl;
     return 0;
 }
