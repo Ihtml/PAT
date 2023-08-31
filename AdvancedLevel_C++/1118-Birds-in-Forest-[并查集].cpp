@@ -39,6 +39,19 @@ int main() {
             exist[temp] = true;
         }
     }
+    for (int i = 1; i <= maxn; i++) {
+        if (exist[i] == true) {
+            int root = findFather(i);
+            cnt[root]++;
+        }
+    }
+    int numTrees = 0, numBirds = 0;
+    for (int i = 1; i <= maxn; i++) {
+        if (exist[i] == true && cnt[i] != 0) {
+            numTrees++;
+            numBirds += cnt[i];
+        }
+    }
 
     return 0;
 }
