@@ -52,6 +52,12 @@ int main() {
             numBirds += cnt[i];
         }
     }
-
+    printf("%d %d\n", numTrees, numBirds);
+    cin >> m;
+    int ida, idb;
+    for (int i = 0; i < m; i++) {
+        cin >> ida >> idb;
+        printf("%s\n", (findFather(ida) == findFather(idb)) ? "Yes" : "No");
+    }
     return 0;
 }
