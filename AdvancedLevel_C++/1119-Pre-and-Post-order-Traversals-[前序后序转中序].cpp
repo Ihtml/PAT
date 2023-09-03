@@ -4,10 +4,21 @@
 #include <vector>
 using namespace std;
 vector<int> in, pre, post;
-bool unique = true;
-int main(){
+bool isUnique = true;
+void getIn(int preLeft,int preRight,int postLeft, int postRight){
+    // Todo
+}
+int main() {
     int n;
     cin >> n;
     pre.resize(n), post.resize(n);
+    for (int i = 0; i < n; i++) {
+        cin >> pre[i];
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> post[i];
+    }
+    cout << (isUnique == true ? "Yes" : "No") << in[0];
+
     return 0;
 }
