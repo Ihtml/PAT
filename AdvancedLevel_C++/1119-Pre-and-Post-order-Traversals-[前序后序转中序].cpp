@@ -1,11 +1,15 @@
-/*给出一棵树的结点个数n，以及它的前序遍历和后序遍历，输出它的中序遍历，
-如果中序遍历不唯一就输出No，且输出其中一个中序即可，如果中序遍历唯一就输出Yes，并输出它的中序*/
+/*
+Q:给出一棵树的结点个数n，以及它的前序遍历和后序遍历，输出它的中序遍历，
+如果中序遍历不唯一就输出No，且输出其中一个中序即可，如果中序遍历唯一就输出Yes，并输出它的中序
+A:
+以后序的根结点的前面一个结点作为参考，寻找这个结点在前序的位置，就可以根据这个位置来划分左右孩子，递归处理
+*/
 #include <iostream>
 #include <vector>
 using namespace std;
 vector<int> in, pre, post;
 bool isUnique = true;
-void getIn(int preLeft,int preRight,int postLeft, int postRight){
+void getIn(int preLeft, int preRight, int postLeft, int postRight) {
     if (preLeft == preRight) {
         // 如果前序和后序遍历序列只有一个元素，直接加入到中序序列
         in.push_back(pre[preLeft]);
@@ -44,7 +48,10 @@ int main() {
         cin >> post[i];
     }
     getIn(0, n - 1, 0, n - 1);
-    cout << (isUnique == true ? "Yes" : "No") << in[0];
-
+    cout << (isUnique == true ? "Yes" : "No") << endl << in[0];
+    for (int i = 1; i < in.size(); i++) {
+        cout << " " << in[i];
+    }
+    cout << endl;
     return 0;
 }
