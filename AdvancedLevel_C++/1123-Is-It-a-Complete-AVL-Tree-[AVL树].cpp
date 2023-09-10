@@ -1,3 +1,4 @@
+/*构建一个AVL树，给出层序遍历序列，并判断是不是完全二叉树*/
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -7,9 +8,26 @@ struct node {
     struct node *left, *right;
 };
 
+node* insert(node* tree, int val) {
+    if (tree == NULL) {
+        tree = new node();
+        tree->val = val;
+    } else if (tree->val > val) {
+        tree->left = insert(tree->left, val);
+        // todo
+    } else {
+        tree->right = insert(tree->right, val);
+        // todo
+    }
+    return tree;
+}
 int main() {
     int n, temp;
     cin >> n;
     node* tree = NULL;
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &temp);
+        tree = insert(tree, temp);
+    }
     return 0;
 }
