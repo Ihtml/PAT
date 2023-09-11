@@ -7,16 +7,25 @@ struct node {
     int val;
     struct node *left, *right;
 };
-
+int getHeight(node* tree) {
+    if (tree == NULL) {
+        return 0;
+    }
+    int l = getHeight(tree->left);
+    int r = getHeight(tree->right);
+    return max(l, r) + 1;
+}
 node* insert(node* tree, int val) {
     if (tree == NULL) {
         tree = new node();
         tree->val = val;
     } else if (tree->val > val) {
         tree->left = insert(tree->left, val);
+        int l = getHeight(tree->left), r = getHeight(tree->right);
         // todo
     } else {
         tree->right = insert(tree->right, val);
+        int l = getHeight(tree->left), r = getHeight(tree->right);
         // todo
     }
     return tree;
