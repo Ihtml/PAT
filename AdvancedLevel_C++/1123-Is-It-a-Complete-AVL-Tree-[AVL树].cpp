@@ -15,6 +15,12 @@ int getHeight(node* tree) {
     int r = getHeight(tree->right);
     return max(l, r) + 1;
 }
+node* leftRotate(node* tree) {
+
+}
+node* rightRotate(node* tree) {}
+node* leftRightRotate(node* tree) {}
+node* rightLeftRotate(node* tree) {}
 node* insert(node* tree, int val) {
     if (tree == NULL) {
         tree = new node();
@@ -22,11 +28,21 @@ node* insert(node* tree, int val) {
     } else if (tree->val > val) {
         tree->left = insert(tree->left, val);
         int l = getHeight(tree->left), r = getHeight(tree->right);
-        // todo
+        if (l - r >= 2) {
+            if (val < tree->left->val)
+                tree = rightRotate(tree);
+            else
+                tree = leftRightRotate(tree);
+        }
     } else {
         tree->right = insert(tree->right, val);
         int l = getHeight(tree->left), r = getHeight(tree->right);
-        // todo
+        if (r - l >= 2) {
+            if (val > tree->right->val)
+                tree = leftRotate(tree);
+            else
+                tree = rightLeftRotate(tree);
+        }
     }
     return tree;
 }
