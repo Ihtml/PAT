@@ -16,9 +16,17 @@ int getHeight(node* tree) {
     return max(l, r) + 1;
 }
 node* leftRotate(node* tree) {
-
+    node *temp = tree->right;
+    tree->right = temp->left;
+    temp->left = tree;
+    return temp;
 }
-node* rightRotate(node* tree) {}
+node* rightRotate(node* tree) {
+    node *temp = tree->left;
+    tree->left = temp->right;
+    temp->right = tree;
+    return temp;
+}
 node* leftRightRotate(node* tree) {}
 node* rightLeftRotate(node* tree) {}
 node* insert(node* tree, int val) {
