@@ -27,8 +27,14 @@ node* rightRotate(node* tree) {
     temp->right = tree;
     return temp;
 }
-node* leftRightRotate(node* tree) {}
-node* rightLeftRotate(node* tree) {}
+node* leftRightRotate(node* tree) {
+    tree->left = leftRotate(tree->left);
+    return rightRotate(tree);
+}
+node* rightLeftRotate(node* tree) {
+    tree->right = rightRotate(tree->right);
+    return leftRotate(tree->right);
+}
 node* insert(node* tree, int val) {
     if (tree == NULL) {
         tree = new node();
