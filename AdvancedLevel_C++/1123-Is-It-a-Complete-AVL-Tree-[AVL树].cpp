@@ -16,13 +16,13 @@ int getHeight(node* tree) {
     return max(l, r) + 1;
 }
 node* leftRotate(node* tree) {
-    node *temp = tree->right;
+    node* temp = tree->right;
     tree->right = temp->left;
     temp->left = tree;
     return temp;
 }
 node* rightRotate(node* tree) {
-    node *temp = tree->left;
+    node* temp = tree->left;
     tree->left = temp->right;
     temp->right = tree;
     return temp;
@@ -34,6 +34,34 @@ node* leftRightRotate(node* tree) {
 node* rightLeftRotate(node* tree) {
     tree->right = rightRotate(tree->right);
     return leftRotate(tree->right);
+}
+int after = 0, isComplete = 1;
+vector<int> levelOrder(node* tree) {
+    vector<int> v;
+    queue<node*> q;
+    q.push(tree);
+    while (!q.empty()) {
+        node* temp = q.front();
+        q.pop();
+        v.push_back(temp->val);
+        if (temp->left != NULL) {
+            if (after) {
+                isComplete = 0;
+            }
+            q.push(temp->left);
+        } else {
+            after = 1;
+        }
+        if (temp->right != NULL) {
+            if (after) {
+                isComplete = 0;
+            }
+            q.push(temp->right);
+        } else {
+            after = 1;
+        }
+    }
+    return v;
 }
 node* insert(node* tree, int val) {
     if (tree == NULL) {
