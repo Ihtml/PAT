@@ -96,5 +96,12 @@ int main() {
         scanf("%d", &temp);
         tree = insert(tree, temp);
     }
+    vector<int> v = levelOrder(tree);
+    for (int i = 0; i < v.size(); i++) {
+        if (i != 0)
+            printf(" ");
+        printf("%d", v[i]);
+    }
+    printf("\n%s", isComplete ? "YES" : "NO");
     return 0;
 }
