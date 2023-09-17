@@ -33,7 +33,7 @@ node* leftRightRotate(node* tree) {
 }
 node* rightLeftRotate(node* tree) {
     tree->right = rightRotate(tree->right);
-    return leftRotate(tree->right);
+    return leftRotate(tree);
 }
 int after = 0, isComplete = 1;
 vector<int> levelOrder(node* tree) {
