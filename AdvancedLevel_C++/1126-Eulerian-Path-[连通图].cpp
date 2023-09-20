@@ -7,6 +7,15 @@ using namespace std;
 vector<vector<int>> v;
 vector<bool> visit;
 int cnt = 0;
+void dfs(int index) {
+    visit[index] = true;
+    cnt++;
+    for (int i = 0; i < v[index].size(); i++) {
+        if (visit[v[index][i]] == false) {
+            dfs(v[index][i]);
+        }
+    }
+}
 int main() {
     int n, m, a, b, even = 0;
     cin >> n >> m;
@@ -26,6 +35,7 @@ int main() {
             even++;
         }
     }
-
+    printf("\n");
+    dfs(1);
     return 0;
 }
