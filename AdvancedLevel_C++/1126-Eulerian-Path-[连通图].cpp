@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-vector<vector<int>> v;
+vector<vector<int> > v;
 vector<bool> visit;
 int cnt = 0;
 void dfs(int index) {
@@ -24,7 +24,7 @@ int main() {
     for (int i = 0; i < m; i++) {
         cin >> a >> b;
         v[a].push_back(b);
-        v[a].push_back(a);
+        v[b].push_back(a);
     }
     for (int i = 1; i <= n; i++) {
         if (i != 1) {
@@ -37,5 +37,11 @@ int main() {
     }
     printf("\n");
     dfs(1);
+    if (even == n && cnt == n)
+        printf("Eulerian");
+    else if (even == n - 2 && cnt == n)
+        printf("Semi-Eulerian");
+    else
+        printf("Non-Eulerian");
     return 0;
 }
