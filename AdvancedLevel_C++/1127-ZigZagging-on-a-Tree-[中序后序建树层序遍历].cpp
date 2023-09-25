@@ -3,7 +3,7 @@
 #include <queue>
 #include <vector>
 using namespace std;
-int n, tree[35][2];
+int n, tree[35][2], root;
 vector<int> in, post, result[35];
 struct node {
     int index, depth;
@@ -23,6 +23,25 @@ void dfs(int& index, int inLeft, int inRight, int postLeft, int postRight) {
 
     // 递归构建右子树
     dfs(tree[index][1], i + 1, inRight, postLeft + (i - inLeft), postRight - 1);
+}
+// 层序遍历树，按层存储结果
+void bfs() {
+    queue<node> q;
+    q.push(node{root, 0}); // 根节点入队，初始深度为0
+
+    while (!q.empty()) {
+        node temp = q.front();
+        q.pop();
+        result[temp.depth].push_back(post[temp.index]); // 将当前节点的值存入对应深度的结果
+
+        // 左子树入队
+        if (tree[temp.index][0] != 0)
+            q.push(node{tree[temp.index][0], temp.depth + 1});
+
+        // 右子树入队
+        if (tree[temp.index][1] != 0)
+            q.push(node{tree[temp.index][1], temp.depth + 1});
+    }
 }
 
 int main() {
