@@ -64,5 +64,14 @@ int main() {
     dfs(root, 1, n, 1, n);
     bfs();
     printf("%d", result[0][0]);
+    for (int i = 1; i < 35; i++) {
+        if (i % 2 == 1) {  // 偶数层从右往左输出
+            for (int j = 0; j < result[i].size(); j++)
+                printf(" %d", result[i][j]);
+        } else {  // 奇数层从左往右输出
+            for (int j = result[i].size() - 1; j >= 0; j--)
+                printf(" %d", result[i][j]);
+        }
+    }
     return 0;
 }
