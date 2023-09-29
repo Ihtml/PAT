@@ -5,8 +5,19 @@ struct node {
     string data;
     int l, r;
 } a[100];
+string dfs(int root) {
+    if (a[root].l == -1 && a[root].r == -1) {
+        return a[root].data;
+    }
+    if (a[root].l == -1 && a[root].r != -1) {
+        return "(" + a[root].data + dfs(a[root].r) + ")";
+    }
+    if (a[root].l != -1 && a[root].r != -1) {
+        return "(" + dfs(a[root].l) + a[root].data + dfs(a[root].r) + ")";
+    }
+}
 int main() {
-    int n, have[100] = {0};
+    int n, have[100] = {0}, root = 1;
     cin >> n;
     for (int i = 1; i <= n; i++) {
         cin >> a[i].data >> a[i].l >> a[i].r;
@@ -16,6 +27,9 @@ int main() {
         if (a[i].r != -1) {
             have[a[i].r] = 1;
         }
+    }
+    while (have[root] == 1) {
+        root++;  // 根据所有孩子结点编号寻找1～n中没有出现过的编号标记为root
     }
     return 0;
 }
