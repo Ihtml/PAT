@@ -14,6 +14,8 @@ string dfs(int root) {
     }
     if (a[root].l != -1 && a[root].r != -1) {
         return "(" + dfs(a[root].l) + a[root].data + dfs(a[root].r) + ")";
+    } else {
+        return "";
     }
 }
 int main() {
@@ -31,5 +33,9 @@ int main() {
     while (have[root] == 1) {
         root++;  // 根据所有孩子结点编号寻找1～n中没有出现过的编号标记为root
     }
+    string ans = dfs(root);
+    if (ans[0] == '(')
+        ans = ans.substr(1, ans.size() - 2);  // 把最外层括号去掉
+    cout << ans;
     return 0;
 }
