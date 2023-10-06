@@ -13,7 +13,24 @@ vector<int> path, tempPath;
 int visit[10000], minCnt, minTransfer, start, end1;
 unordered_map<int, int> line; // 地铁线路信息映射表
 void dfs(int node, int cnt){
-    // todo
+    if (node == end1 &&
+        (cnt < minCnt ||
+         (cnt == minCnt && transferCnt(tempPath) < minTransfer))) {
+        minCnt = cnt;
+        minTransfer = transferCnt(tempPath);
+        path = tempPath;
+    }
+    if (node == end1)
+        return;
+    for (int i = 0; i < v[node].size(); i++) {
+        if (visit[v[node][i]] == 0) {
+            visit[v[node][i]] = 1;
+            tempPath.push_back(v[node][i]);
+            dfs(v[node][i], cnt + 1);
+            visit[v[node][i]] = 0;
+            tempPath.pop_back();
+        }
+    }
 }
 // 通过检查路径上相邻站点所属的地铁线路是否不同来计算路径的换乘次数。
 int transferCnt(vector<int> a) {
