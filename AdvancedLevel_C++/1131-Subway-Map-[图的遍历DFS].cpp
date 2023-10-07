@@ -7,11 +7,21 @@
 #include <unordered_map>
 #include <vector>
 using namespace std;
-vector<vector<int>> v(10000);
+vector<vector<int> > v(10000);
 vector<int> path, tempPath;
 // minCnt-中途经停的最少的站; minTransfer-需要换乘的最小次数
 int visit[10000], minCnt, minTransfer, start, end1;
 unordered_map<int, int> line; // 地铁线路信息映射表
+// 通过检查路径上相邻站点所属的地铁线路是否不同来计算路径的换乘次数。
+int transferCnt(vector<int> a) {
+    int cnt = -1, preLine = 0;
+    for (int i = 1; i < a.size(); i++) {
+        if (line[a[i - 1] * 10000 + a[i]] != preLine)
+            cnt++;
+        preLine = line[a[i - 1] * 10000 + a[i]];
+    }
+    return cnt;
+}
 void dfs(int node, int cnt){
     if (node == end1 &&
         (cnt < minCnt ||
@@ -32,24 +42,17 @@ void dfs(int node, int cnt){
         }
     }
 }
-// 通过检查路径上相邻站点所属的地铁线路是否不同来计算路径的换乘次数。
-int transferCnt(vector<int> a) {
-    int cnt = -1, preLine = 0;
-    for (int i = 1; i < a.size(); i++) {
-        if (line[a[i - 1] * 10000 + a[i]] != preLine) cnt++;
-        preLine = line[a[i - 1] * 10000 + a[i]];
-    }
-    return cnt;
-}
 int main() {
     int n, m, k, pre, temp;
     cin >> n;
     for (int i = 0; i < n; i++) {
-        cin >> n >> pre;
+        cin >> m >> pre;
         for (int j = 1; j < m; j++) {
             cin >> temp;
             v[pre].push_back(temp);
             v[temp].push_back(pre);
+            line[pre * 10000 + temp] = line[temp * 10000 + pre] = i + 1;
+            pre = temp;
         }
     }
     cin >> k;
@@ -60,6 +63,8 @@ int main() {
         tempPath.push_back(start);
         visit[start] = 1;
         dfs(start, 0);
+        visit[start] = 0;
+        printf("%d\n", minCnt);
     }
 
     return 0;
