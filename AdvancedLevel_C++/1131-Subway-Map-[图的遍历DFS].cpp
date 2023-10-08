@@ -65,6 +65,17 @@ int main() {
         dfs(start, 0);
         visit[start] = 0;
         printf("%d\n", minCnt);
+        int preLine = 0, preTransfer = start;
+        for (int j = 1; j < path.size(); j++) {
+            if (line[path[j - 1] * 10000 + path[j]] != preLine) {
+                if (preLine != 0)
+                    printf("Take Line#%d from %04d to %04d.\n", preLine,
+                           preTransfer, path[j - 1]);
+                preLine = line[path[j - 1] * 10000 + path[j]];
+                preTransfer = path[j - 1];
+            }
+        }
+        printf("Take Line#%d from %04d to %04d.\n", preLine, preTransfer, end1);
     }
 
     return 0;
