@@ -10,7 +10,7 @@ A:对于每一个集合做判断，遍历集合中的每一个元素，
 #include <vector>
 using namespace std;
 int main() {
-    int n, m, a, b, k, nv;
+    int n, m, a, b, k, nv, num;
     cin >> n >> m;
     vector<int> v[n];
     for (int i = 0; i < m; i++) {
@@ -21,6 +21,14 @@ int main() {
     cin >> k;
     for (int i = 0; i < k; i++) {
         cin >> nv;
+        int flag = 0;
+        vector<int> hash(m, 0);
+        for (int j = 0; j < nv; j++) {
+            cin >> num;
+            for (int k = 0; k < v[num].size(); k++) {
+                hash[v[num][k]] = 1;
+            }
+        }
     }
 
     return 0;
