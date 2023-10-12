@@ -29,6 +29,13 @@ int main() {
                 hash[v[num][k]] = 1;
             }
         }
+        for (int j = 0; j < m; j++) {
+            if (hash[j] == 0) {
+                printf("No\n");
+                flag = 1;
+                break;
+            }
+        }
     }
 
     return 0;
