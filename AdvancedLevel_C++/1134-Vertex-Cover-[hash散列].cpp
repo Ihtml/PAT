@@ -36,6 +36,8 @@ int main() {
                 break;
             }
         }
+        if (flag == 0)
+            printf("Yes\n");
     }
 
     return 0;
