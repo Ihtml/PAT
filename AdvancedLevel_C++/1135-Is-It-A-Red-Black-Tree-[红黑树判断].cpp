@@ -7,6 +7,18 @@ struct node {
     int val;
     struct node *left, *right;
 };
+node* build(node* root, int v) {
+    if (root == NULL) {
+        root = new node();
+        root->val = v;
+        root->left = root->right = NULL;
+    } else if (abs(v) <= abs(root->val)) {
+        root->left = build(root->left, v);
+    } else {
+        root->right = build(root->right, v);
+    }
+    return root;
+}
 
 int main() {
     int k, n;
