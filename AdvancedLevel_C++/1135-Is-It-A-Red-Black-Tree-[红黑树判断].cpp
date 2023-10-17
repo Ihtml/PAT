@@ -19,7 +19,17 @@ node* build(node* root, int v) {
     }
     return root;
 }
-
+bool judge1(node* root) {
+    if (root == NULL)
+        return true;
+    if (root->val < 0) {
+        if (root->left != NULL && root->left->val < 0)
+            return false;
+        if (root->right != NULL && root->right->val < 0)
+            return false;
+    }
+    return judge1(root->left) && judge1(root->right);
+}
 int main() {
     int k, n;
     scanf("%d", &k);
