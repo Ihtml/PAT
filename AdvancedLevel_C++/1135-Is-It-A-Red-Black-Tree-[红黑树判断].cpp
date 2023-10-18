@@ -30,6 +30,13 @@ bool judge1(node* root) {
     }
     return judge1(root->left) && judge1(root->right);
 }
+int getNum(node* root) {
+    if (root == NULL)
+        return 0;
+    int l = getNum(root->left);
+    int r = getNum(root->right);
+    return root->val > 0 ? max(l, r) + 1 : max(l, r);
+}
 int main() {
     int k, n;
     scanf("%d", &k);
