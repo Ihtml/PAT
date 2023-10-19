@@ -37,6 +37,13 @@ int getNum(node* root) {
     int r = getNum(root->right);
     return root->val > 0 ? max(l, r) + 1 : max(l, r);
 }
+bool judge2(node *root) {
+    if (root == NULL) return true;
+    int l = getNum(root->left);
+    int r = getNum(root->right);
+    if(l != r) return false;
+    return judge2(root->left) && judge2(root->right);
+}
 int main() {
     int k, n;
     scanf("%d", &k);
