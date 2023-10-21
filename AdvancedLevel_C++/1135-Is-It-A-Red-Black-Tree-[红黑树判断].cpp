@@ -53,7 +53,12 @@ int main() {
         node* root = NULL;
         for (int j = 0; j < n; j++) {
             scanf("%d", &arr[j]);
+            root = build(root, arr[j]);
         }
+        if (arr[0] < 0 || judge1(root) == false || judge2(root) == false)
+            printf("No\n");
+        else
+            printf("Yes\n");
     }
     return 0;
 }
