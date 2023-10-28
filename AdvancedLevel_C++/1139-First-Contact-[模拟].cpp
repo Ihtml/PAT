@@ -5,9 +5,18 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+using namespace std;
 int main() {
     int n, m, k;
-    scanf("%d%d", &n, &m);
     vector<int> v[10000];
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i < m; i++) {
+        string a, b;
+        cin >> a >> b;
+        if (a.length() == b.length()) {
+            v[abs(stoi(a))].push_back(abs(stoi(b)));
+            v[abs(stoi(b))].push_back(abs(stoi(a)));
+        }
+    }
     return 0;
 }
