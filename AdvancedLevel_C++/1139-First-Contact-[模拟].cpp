@@ -6,6 +6,13 @@
 #include <unordered_map>
 #include <vector>
 using namespace std;
+unordered_map<int, bool> arr;
+struct node {
+    int a, b;
+};
+bool cmp(node x, node y) {
+    return x.a != y.a ? x.a < y.a : x.b < y.b;
+}
 int main() {
     int n, m, k;
     vector<int> v[10000];
