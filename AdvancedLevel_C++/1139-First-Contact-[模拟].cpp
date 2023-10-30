@@ -24,6 +24,9 @@ int main() {
             v[abs(stoi(a))].push_back(abs(stoi(b)));
             v[abs(stoi(b))].push_back(abs(stoi(a)));
         }
+        arr[abs(stoi(a)) * 10000 + abs(stoi(b))] =
+            arr[abs(stoi(b)) * 10000 + abs(stoi(a))] = true;
     }
+    scanf("%d", &k);
     return 0;
 }
