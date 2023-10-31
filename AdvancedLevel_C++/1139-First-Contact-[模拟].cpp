@@ -28,5 +28,17 @@ int main() {
             arr[abs(stoi(b)) * 10000 + abs(stoi(a))] = true;
     }
     scanf("%d", &k);
-    return 0;
+    for (int i = 0; i < k; i++) {
+        int c, d;
+        cin >> c >> d;
+        vector<node> ans;
+        for (int j = 0; j < v[abs(c)].size(); j++) {
+            for (int k = 0; k < v[abs(d)].size(); k++) {
+                if (v[abs(c)][j] == abs(d) || abs(c) == v[abs(d)][k])
+                    continue;
+            }
+        }
+        sort(ans.begin(), ans.end(), cmp);
+        return 0;
+    }
 }
