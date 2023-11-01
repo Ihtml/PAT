@@ -36,9 +36,14 @@ int main() {
             for (int k = 0; k < v[abs(d)].size(); k++) {
                 if (v[abs(c)][j] == abs(d) || abs(c) == v[abs(d)][k])
                     continue;
+                if (arr[v[abs(c)][j] * 10000 + v[abs(d)][k]] == true)
+                    ans.push_back(node{v[abs(c)][j], v[abs(d)][k]});
             }
         }
         sort(ans.begin(), ans.end(), cmp);
+        printf("%d\n", int(ans.size()));
+        for (int j = 0; j < ans.size(); j++)
+            printf("%04d %04d\n", ans[j].a, ans[j].b);
         return 0;
     }
 }
