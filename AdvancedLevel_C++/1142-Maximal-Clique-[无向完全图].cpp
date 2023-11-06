@@ -4,6 +4,14 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-int main(){
+int e[210][210];
+int main() {
+    int nv, ne, m, ta, tb, k;
+    cin >> nv >> ne;
+    for (int i = 0; i < ne; i++) {
+        cin >> ta >> tb;
+        e[ta][tb] = e[tb][ta] = 1;
+    }
+    cin >> m;
     return 0;
 }
