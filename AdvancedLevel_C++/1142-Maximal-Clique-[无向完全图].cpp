@@ -13,5 +13,10 @@ int main() {
         e[ta][tb] = e[tb][ta] = 1;
     }
     cin >> m;
+    for (int i = 0; i < m; i++) {
+        cin >> k;
+        vector<int> v(k);
+        int hash[210] = {0}, isclique = 1, isMaximal = 1;
+    }
     return 0;
 }
