@@ -17,6 +17,21 @@ int main() {
         cin >> k;
         vector<int> v(k);
         int hash[210] = {0}, isclique = 1, isMaximal = 1;
+        for (int j = 0; j < k; j++) {
+            scanf("%d", &v[j]);
+            hash[v[j]] = 1;
+        }
+        for (int j = 0; j < k; j++) {
+            if (isclique == 0)
+                break;
+            for (int l = j + 1; l < k; l++) {
+                if (e[v[j]][v[l]] == 0) {
+                    isclique = 0;
+                    printf("Not a Clique\n");
+                    break;
+                }
+            }
+        }
     }
     return 0;
 }
