@@ -8,5 +8,9 @@ int main(){
     int m, n, u, v, a;
     scanf("%d %d", &m, &n);
     vector<int> pre(n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &pre[i]);
+        mp[pre[i]] = true;
+    }
     return 0;
 }
