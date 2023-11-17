@@ -12,5 +12,13 @@ int main(){
         scanf("%d", &pre[i]);
         mp[pre[i]] = true;
     }
+    for (int i = 0; i < m; i++) {
+        scanf("%d %d", &u, &v);
+        for (int j = 0; j < n; j++) {
+            a = pre[j];
+            if ((a >= u && a <= v) || (a >= v && a <= u))
+                break;
+        }
+    }
     return 0;
 }
