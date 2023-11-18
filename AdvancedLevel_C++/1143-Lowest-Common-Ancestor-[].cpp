@@ -19,6 +19,14 @@ int main(){
             if ((a >= u && a <= v) || (a >= v && a <= u))
                 break;
         }
+        if (mp[u] == false && mp[v] == false)
+            printf("ERROR: %d and %d are not found.\n", u, v);
+        else if (mp[u] == false || mp[v] == false)
+            printf("ERROR: %d is not found.\n", mp[u] == false ? u : v);
+        else if (a == u || a == v)
+            printf("%d is an ancestor of %d.\n", a, a == u ? v : u);
+        else
+            printf("LCA of %d and %d is %d.\n", u, v, a);
     }
     return 0;
 }
