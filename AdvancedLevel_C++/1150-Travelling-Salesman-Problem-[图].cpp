@@ -4,7 +4,19 @@
 #include <iostream>
 #include <set>
 #include <vector>
-int e[300][300], n, m, k;
+using namespace std;
+int e[300][300], n, m, k, ans = 99999999, ansid;
+vector<int> v;
+void check(int index){
+    int sum = 0, cnt, flag = 1;
+    scanf("%d", &cnt);
+    set<int> s;
+    vector<int> v(cnt);
+    for (int i = 0; i < cnt; i++) {
+        scanf("%d", &v[i]);
+        s.insert(v[i]);
+    }
+}
 int main() {
     scanf("%d%d", &n, &m);
     for (int i = 0; i < m; i++) {
@@ -12,5 +24,7 @@ int main() {
         scanf("%d%d%d", &t1, &t2, &t);
         e[t1][t2] = e[t2][t1] = t;
     }
+    for (int i = 1; i <= k; i++)
+        check(i);
     return 0;
 }
