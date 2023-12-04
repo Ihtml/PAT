@@ -21,12 +21,22 @@ void check(int index) {
             flag = 0;
         sum += e[v[i]][v[i + 1]];
     }
-    if (/* condition */) {
-        /* code */
-    } else if (/* condition */) {
-        /* code */
+    if (flag == 0) {
+        printf("Path %d: NA (Not a TS cycle)\n", index);
+    } else if (v[0] != v[cnt - 1] || s.size() != n) {
+        printf("Path %d: %d (Not a TS cycle)\n", index, sum);
+    } else if (cnt != n + 1) {
+        printf("Path %d: %d (TS cycle)\n", index, sum);
+        if (sum < ans) {
+            ans = sum;
+            ansid = index;
+        }
     } else {
-        /* code */
+        printf("Path %d: %d (TS simple cycle)\n", index, sum);
+        if (sum < ans) {
+            ans = sum;
+            ansid = index;
+        }
     }
 }
 int main() {
