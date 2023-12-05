@@ -46,7 +46,9 @@ int main() {
         scanf("%d%d%d", &t1, &t2, &t);
         e[t1][t2] = e[t2][t1] = t;
     }
+    scanf("%d", &k);
     for (int i = 1; i <= k; i++)
         check(i);
+    printf("Shortest Dist(%d) = %d\n", ansid, ans);
     return 0;
 }
