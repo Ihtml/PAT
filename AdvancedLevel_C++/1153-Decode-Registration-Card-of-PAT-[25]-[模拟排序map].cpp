@@ -13,9 +13,15 @@ struct node {
     string t;
     int value;
 };
+bool cmp(const node& a, const node& b) {
+    return a.value != b.value ? a.value > b.value : a.t < b.t;
+}
 int main(){
     int n, k, num;
     string s;
     cin >> n >> k;
+    vector<node> v(n);
+    for (int i = 0; i < n; i++)
+        cin >> v[i].t >> v[i].value;
     return 0;
 }
