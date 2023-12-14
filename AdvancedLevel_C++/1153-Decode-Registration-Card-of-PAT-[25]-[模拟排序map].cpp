@@ -8,7 +8,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-    using namespace std;
+using namespace std;
 struct node {
     string t;
     int value;
@@ -16,12 +16,31 @@ struct node {
 bool cmp(const node& a, const node& b) {
     return a.value != b.value ? a.value > b.value : a.t < b.t;
 }
-int main(){
+int main() {
     int n, k, num;
     string s;
     cin >> n >> k;
     vector<node> v(n);
     for (int i = 0; i < n; i++)
         cin >> v[i].t >> v[i].value;
+    for (int i = 1; i <= k; i++) {
+        cin >> num >> s;
+        printf("Case %d: %d %s\n", i, num, s.c_str());
+        vector<node> ans;
+        int cnt = 0, sum = 0;
+    }
+    if (/* condition */)
+    {
+        /* code */
+    }
+    else if (/* condition */)
+    {
+        /* code */
+    }
+    else
+    {
+        /* code */
+    }
+    
     return 0;
 }
