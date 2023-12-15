@@ -28,19 +28,23 @@ int main() {
         printf("Case %d: %d %s\n", i, num, s.c_str());
         vector<node> ans;
         int cnt = 0, sum = 0;
+        if (num == 1) {
+            for (int j = 0; j < n; j++)
+                if (v[j].t[0] == s[0])
+                    ans.push_back(v[j]);
+        } else if (num == 2) {
+            for (int j = 0; j < n; j++) {
+                if (v[j].t.substr(1, 3) == s) {
+                    cnt++;
+                    sum += v[j].value;
+                }
+            }
+            if (cnt != 0)
+                printf("%d %d\n", cnt, sum);
+        } else {
+            /* code */
+        }
     }
-    if (/* condition */)
-    {
-        /* code */
-    }
-    else if (/* condition */)
-    {
-        /* code */
-    }
-    else
-    {
-        /* code */
-    }
-    
+
     return 0;
 }
