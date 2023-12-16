@@ -41,8 +41,13 @@ int main() {
             }
             if (cnt != 0)
                 printf("%d %d\n", cnt, sum);
-        } else {
-            /* code */
+        } else if (num == 3) {
+            unordered_map<string, int> m;
+            for (int j = 0; j < n; j++)
+                if (v[j].t.substr(4, 6) == s)
+                    m[v[j].t.substr(1, 3)]++;
+            for (auto it : m)
+                ans.push_back({it.first, it.second});
         }
     }
 
