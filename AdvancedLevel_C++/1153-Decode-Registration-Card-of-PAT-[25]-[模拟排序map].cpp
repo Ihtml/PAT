@@ -49,6 +49,12 @@ int main() {
             for (auto it : m)
                 ans.push_back({it.first, it.second});
         }
+        sort(ans.begin(), ans.end(), cmp);
+        for (int j = 0; j < ans.size(); j++)
+            printf("%s %d\n", ans[j].t.c_str(), ans[j].value);
+        if (((num == 1 || num == 3) && ans.size() == 0) ||
+            (num == 2 && cnt == 0))
+            printf("NA\n");
     }
 
     return 0;
