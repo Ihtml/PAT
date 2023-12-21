@@ -26,6 +26,13 @@ int main() {
             scanf("%d", &a[i]);
             se.insert(a[i]);
         }
+        for (int i = 0; i < m; i++) {
+            if (a[v[i].t1] == a[v[i].t2]) {
+                flag = false;
+                break;
+            }
+        }
     }
+    
     return 0;
 }
