@@ -12,27 +12,45 @@ struct node {
     int t1, t2;
 };
 int main() {
+    // 输入节点数、边数
     int n, m, k;
     cin >> n >> m;
+
+    // 存储所有边的信息
     vector<node> v(m);
     for (int i = 0; i < m; i++)
         scanf("%d %d", &v[i].t1, &v[i].t2);
+
+    // 查询次数
     cin >> k;
     while (k--) {
+        // 存储节点的颜色信息
         int a[10009] = {0};
         bool flag = true;
+
+        // 存储节点颜色的集合，用于统计颜色个数
         set<int> se;
+
+        // 输入每个节点的颜色，并统计颜色个数
         for (int i = 0; i < n; i++) {
             scanf("%d", &a[i]);
             se.insert(a[i]);
         }
+
+        // 检查每条边的两个节点的颜色是否相同
         for (int i = 0; i < m; i++) {
             if (a[v[i].t1] == a[v[i].t2]) {
                 flag = false;
                 break;
             }
         }
+
+        // 输出结果
+        if (flag)
+            printf("%d-coloring\n", se.size());
+        else
+            printf("No\n");
     }
-    
+
     return 0;
 }
