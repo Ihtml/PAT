@@ -1,5 +1,9 @@
+// 性感素数是指形如(p, p +6)这样的一对素数。
+// 给定一个整数，判断其是否为一个性感素数。
+// 若N是一个性感素数，则在一行中输出Yes，并在第二行输出与N配对的另一个性感素数（若这样的数不唯一，输出较小的那个）。
+// 若N不是性感素数，则在一行中输出No，然后在第二行输出大于N的最小性感素数。
 #include <iostream>
-using namespace std;
+    using namespace std;
 bool isPrime(int a) {
     if (a == 2 || a == 3) {
         return true;
@@ -13,4 +17,10 @@ bool isPrime(int a) {
         }
     }
     return true;
+}
+int p, ans;
+int mian(){
+    cin >> p;
+    // todo
+    return 0;
 }
