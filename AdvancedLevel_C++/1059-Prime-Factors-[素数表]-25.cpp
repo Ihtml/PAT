@@ -2,9 +2,12 @@
 #include <vector>
 using namespace std;
 bool isPrime(int a) {
-  if (a == 2 || a == 3) {
-    return true;
-  }
+    if (a < 5) {
+        if (a == 2 || a == 3) {
+            return true;
+        }
+        return false;
+    }
   if (a % 6 != 1 && a % 6 != 5) {
     return false;
   }
