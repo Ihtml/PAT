@@ -16,6 +16,14 @@ int main() {
         if (record.count(temp)) {
             ctn++;
         }
+        if (smallx > temp.substr(6, 8)) {
+            smallx = temp.substr(6, 8);
+            ansx = temp;
+        }
+        if (smalla > temp.substr(6, 8)) {
+            smalla = temp.substr(6, 8);
+            ansa = temp;
+        }
     }
 
     return 0;
