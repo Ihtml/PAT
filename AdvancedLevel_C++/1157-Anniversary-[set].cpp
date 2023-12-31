@@ -25,6 +25,10 @@ int main() {
             ansa = temp;
         }
     }
-
+    cout << ctn << endl;
+    if (ctn)
+        cout << ansx;
+    else
+        cout << ansa;
     return 0;
 }
