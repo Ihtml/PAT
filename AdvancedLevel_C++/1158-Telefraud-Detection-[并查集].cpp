@@ -42,6 +42,13 @@ int main() {
         cout << "None";
         return 0;
     }
+    for (int i = 0; i < su.size(); i++) {
+        for (int j = i + 1; j < su.size(); j++) {
+            if (record[su[i]][su[j]] && record[su[j]][su[i]]) {
+                Union(su[i], su[j]);
+            }
+        }
+    }
 
     return 0;
 }
