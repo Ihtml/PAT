@@ -18,8 +18,10 @@ void Union(int a, int b) {
 }
 int main() {
     // sc中存储短通话的人数，rec中存储短通话收到回电的人数,su中保存嫌疑人的编号
-    int k, n, m, c, r, d, sc[1001], rec[1001], record[1001][1001];
+    int k, n, m, c, r, d, sc[1001], rec[1001], mark[1001], record[1001][1001];
     vector<int> su;
+    for (int i = 1; i <= 1000; i++)
+        p[i] = i;
     cin >> k >> n >> m;
     for (int i = 0; i < m; i++) {
         cin >> c >> r >> d;
@@ -49,6 +51,18 @@ int main() {
             }
         }
     }
-
+    for (int i = 0; i < su.size(); i++) {
+        if (mark[i]) {
+            continue;
+        }
+        cout << su[i];
+        for (int j = i + 1; j < su.size(); j++) {
+            if (Find(su[i]) == Find(su[j])) {
+                cout << ' ' << su[j];
+                mark[j] = 1;
+            }
+        }
+        cout << "\n";
+    }
     return 0;
 }
