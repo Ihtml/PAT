@@ -18,15 +18,20 @@ void Union(int a, int b) {
 }
 int main() {
     // sc中存储短通话的人数，rec中存储短通话收到回电的人数,su中保存嫌疑人的编号
-    int k, n, m, c, r, d, sc[1001], rec[1001], mark[1001], record[1001][1001];
-    vector<int> su;
+    int k, n, m, c, r, d, record[1001][1001];
+    // 不用 int sc(1001), rec(1001), mark(1001);声明，避免潜在的错误
+    vector<int> su, sc(1001), rec(1001), mark(1001);
+    
+    // 初始化并查集的父节点数组
     for (int i = 1; i <= 1000; i++)
         p[i] = i;
     cin >> k >> n >> m;
+    // 输入总人数 k，节点数 n，短通话记录数 m
     for (int i = 0; i < m; i++) {
         cin >> c >> r >> d;
         record[c][r] += d;
     }
+    // 遍历每个节点，统计短通话收发情况，找出嫌疑人
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
             if (record[i][j] && record[i][j] <= 5) {
@@ -36,7 +41,8 @@ int main() {
                 }
             }
         }
-        if (sc[i] > k && rec[i] * 5 <= sc[i]) {
+        // 判断是否为嫌疑人，符合条件则加入嫌疑人列表
+        if (sc[i] > k && (rec[i] * 5 <= sc[i])) {
             su.push_back(i);
         }
     }
@@ -44,6 +50,7 @@ int main() {
         cout << "None";
         return 0;
     }
+    // 对嫌疑人列表进行遍历，合并具有通话关系的嫌疑人
     for (int i = 0; i < su.size(); i++) {
         for (int j = i + 1; j < su.size(); j++) {
             if (record[su[i]][su[j]] && record[su[j]][su[i]]) {
