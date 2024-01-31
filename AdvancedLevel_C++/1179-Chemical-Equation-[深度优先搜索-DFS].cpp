@@ -27,6 +27,13 @@ int getReactants(string s, vector<int>& v) {
     }
     return stoi(s.substr(i));  // 返回产物
 }
+bool cmp(vector<int>& a, vector<int>& b) {
+    for (int i = 0; i < a.size() && i < b.size(); i++) {
+        if (a[i] != b[i]) {
+            return a[i] < b[i];
+        }
+    }
+}
 int main() {
     cin >> n;
     for (int i = 0; i < n; i++) {
@@ -48,6 +55,10 @@ int main() {
         vector<int> v;  // 获取s中的所有原料
         t = getReactants(s, v);
         record[t].method[record[t].cnt++] = v;  // v加到产品t的生产方式中
+    }
+    for (int i = 0; i < indicesOfProduct.size(); i++) {
+        t = indicesOfProduct[i];  // 对要生产的产物product的生产方式进行排序
+        sort(record[t].method, record[t].method + record[t].cnt, cmp);
     }
     return 0;
 }
