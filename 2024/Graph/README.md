@@ -29,5 +29,29 @@ DFSTrave(G) { //遍历图 G
     for (G的所有顶点u) //对 G的所有顶点u
         if vis[u]== false //如果 u未被访问
         DFS(u); //访问 u所在的连通块
+
+```
+邻接矩阵版：
+```c++
+const int MAXV = 1000;      // 最大顶点数
+const int INF = 100000000;  // 设INF为一个很大的树
+int n, G[MAXV][MAXV];       // n为顶点数，MAXV为最大顶点数
+bool vis[MAXV] = {false};  // 如果顶点i已被访问，则vis[i]==true,初值为false
+
+void DFS(int u, int depth) {  // u为当前访问的顶点标号，depth为深度
+    vis[u] = true;            // 设置u已被访问
+    for (int i = 0; i < n; i++) {
+        if (vis[i] == false && G[u][i] != INF) {
+            DFS(i, depth + 1);  // 访问i，深度加1
+        }
+    }
+}
+
+void DFSTrave() {
+    for (int i = 0; i < n; i++) {
+        if (vis[i] == false) {
+            DFS(i, 1);  // 访问u和i所在的连通块，1表示第一层
+        }
+    }
 }
 ```
