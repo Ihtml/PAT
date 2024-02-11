@@ -55,3 +55,28 @@ void DFSTrave() {
     }
 }
 ```
+邻接表版：
+```c++
+vector<int> Adj[MAXV];  // 图G的邻接表
+int n;                  // n为顶点数，MAXV为最大顶点数
+bool vis[MAXV] = {false};  // 如果顶点i已被访问，则vis[i]==true,初值为false
+
+void DFS(int u, int depth) {  // u为当前访问的顶点标号，depth为深度
+    vis[u] = true;            // 设置u已被访问
+    // 如果要对u进行一些操作，可以在此处进行
+    for (int i = 0; i < Adj[u].size(); i++) {
+        int v = Adj[u][i];
+        if (vis[v] == false) {  // 如果v未被访问
+            DFS(v, depth + 1);  // 访问v，深度加1
+        }
+    }
+}
+
+void DFSTrave() {
+    for (int i = 0; i < n; i++) {
+        if (vis[i] == false) {
+            DFS(i, 1);  // 访问u和i所在的连通块，1表示第一层
+        }
+    }
+}
+```
