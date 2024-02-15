@@ -170,3 +170,41 @@ void BFSTrave() {                  // 遍历图
     }
 }
 ```
+层序遍历:
+```c++
+struct node {
+    int v;      // 顶点编号
+    int layer;  // 顶点层号
+};
+vector<node> Adj1[MAXV];
+bool inq[MAXV] = {false};  // 若项点i 曾入过队列，则inq[i]==true。 初值为false
+
+void BFS(int s) {
+    queue<node> q;
+    node start;
+    start.v = s;
+    start.layer = 0;
+    q.push(start);
+    inq[s] = true;
+    while (!q.empty()) {
+        node topNode = q.front();
+        q.pop();
+        int u = topNode.v;
+        for (int i = 0; i < Adj1[u].size(); i++) {
+            node next = Adj1[u][i];
+            next.layer = topNode.layer + 1;
+            if (inq[next.v] == false) {
+                q.push(next);
+                inq[next.v] = true;
+            }
+        }
+    }
+}
+void BFSTrave() {                  // 遍历图
+    for (int u = 0; u < n; u++) {  // 枚举所有顶点
+        if (inq[u] == false) {     // 如果u未曾加入过队列
+            BFS(u);                // 遍历u所在的连通块
+        }
+    }
+}
+```
