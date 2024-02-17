@@ -247,3 +247,33 @@ Dijkstra (G, d[], s) {
     }
 }
 ```
+邻接矩阵版:
+```c++
+// 邻接矩阵版
+int n, G[MAXV][MAXV];
+int d[MAXV];               // 起点到达各点的最短路径长度
+bool vis[MAXV] = {false};  // 标记数组 vis[i]==true表示已访问，初值均为false
+
+void Dijkstra(int s) {       // s为起点
+    fill(d, d + MAXV, INF);  // fill函数将整个d数组赋为INF
+    d[s] = 0;                // 起点s到达自身的距离为0
+    for (int i = 0; i < n; i++) {
+        int u = -1, MIN = INF;  // u使d[u]最小，MIN存放该最小的d[u]
+        for (int j = 0; j < n; j++) {
+            if (vis[j] == false && d[j] < MIN) {  // 找到未访问的顶点中d[]最小的
+                u = j;
+                MIN = d[j];
+            }
+        }
+        // 找不到小于INF的d[u],说明剩下的顶点和起点s不连通
+        if (u == -1)
+            return;
+        vis[u] = true;  // 标记u为已访问
+        for (int v = 0; v < n; v++) {
+            if (vis[v] == false && G[u][v] != INF && d[u] + G[u][v] < d[v]) {
+                d[v] = d[u] + G[u][v];  // 优化d[v]
+            }
+        }
+    }
+}
+```
