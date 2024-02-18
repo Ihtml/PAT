@@ -247,9 +247,8 @@ Dijkstra (G, d[], s) {
     }
 }
 ```
-邻接矩阵版:
+邻接矩阵版: 时间复杂度O(V^2)
 ```c++
-// 邻接矩阵版
 int n, G[MAXV][MAXV];
 int d[MAXV];               // 起点到达各点的最短路径长度
 bool vis[MAXV] = {false};  // 标记数组 vis[i]==true表示已访问，初值均为false
@@ -272,6 +271,37 @@ void Dijkstra(int s) {       // s为起点
         for (int v = 0; v < n; v++) {
             if (vis[v] == false && G[u][v] != INF && d[u] + G[u][v] < d[v]) {
                 d[v] = d[u] + G[u][v];  // 优化d[v]
+            }
+        }
+    }
+}
+```
+邻接表版：复杂度O(V^2 + E)
+```c++
+struct node {
+    int v, dis;  // v为目标顶点，dis为边权
+};
+vector<node> Adj[MAXV];  // 邻接表，存放从顶点u出发可以到达的所有顶点
+int n, d[MAXV];            // n为(实际)顶点数
+bool vis[MAXV] = {false};  // 标记数组，表示某个顶点是否已被访问
+void Dijkstra(int s) {
+    fill(d, d + MAXV, INF);
+    d[s] = 0;
+    for (int i = 0; i < n; i++) {
+        int u = -1, MIN = INF;
+        for (int j = 0; j < n; j++) {
+            if (vis[j] == false && d[j] < MIN) {
+                u = j;
+                MIN = d[j];
+            }
+        }
+        if (u == -1)
+            return;
+        vis[u] = true;
+        for (int j = 0; j < Adj[u].size(); j++) {
+            int v = Adj[u][j].v;
+            if (vis[v] == false && d[u] + Adj[u][j].dis < d[v]) {
+                d[v] = d[u] + Adj[u][j].dis;  // 优化d[v]
             }
         }
     }
