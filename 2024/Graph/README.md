@@ -247,6 +247,7 @@ Dijkstra (G, d[], s) {
         for(从u出发能到达的所有顶点v){
             if(v未被访问&&以u为中介点使s到v的最短距离d[v]更优)
                 优化d[v];
+                令v的前驱为u;
         }
     }
 }
@@ -254,12 +255,16 @@ Dijkstra (G, d[], s) {
 邻接矩阵版: 时间复杂度O(V^2)
 ```c++
 int n, G[MAXV][MAXV];
-int d[MAXV];               // 起点到达各点的最短路径长度
+int d[MAXV];    // 起点到达各点的最短路径长度
+int pre[MAXV];  // pre[v]表示从起点到顶点v的的最短路径上v的前一个顶点(新添加)
 bool vis[MAXV] = {false};  // 标记数组 vis[i]==true表示已访问，初值均为false
 
 void Dijkstra(int s) {       // s为起点
     fill(d, d + MAXV, INF);  // fill函数将整个d数组赋为INF
-    d[s] = 0;                // 起点s到达自身的距离为0
+    for (int i = 0; i < n; i++) {
+        pre[i] = i;  // 初始状态下设每个点的前驱为自身（新添加）
+    }
+    d[s] = 0;  // 起点s到达自身的距离为0
     for (int i = 0; i < n; i++) {
         int u = -1, MIN = INF;  // u使d[u]最小，MIN存放该最小的d[u]
         for (int j = 0; j < n; j++) {
@@ -275,9 +280,18 @@ void Dijkstra(int s) {       // s为起点
         for (int v = 0; v < n; v++) {
             if (vis[v] == false && G[u][v] != INF && d[u] + G[u][v] < d[v]) {
                 d[v] = d[u] + G[u][v];  // 优化d[v]
+                pre[v] = u;             // 记录v的前驱结点是u(新添加)
             }
         }
     }
+}
+void DFS(int s, int v) {  // s起点编号，v当前访问的顶点编号(从终点开始递归）
+    if (v == s) {  // 如果当前已到达起点s,则输出起点并返回
+        cout << s;
+        return;
+    }
+    DFS(s, pre[v]);  // 递归访问v的前驱结点pre[v]
+    cout << v;  // 从最深处return回来之后，输出每一层的顶点号
 }
 ```
 邻接表版：复杂度O(V^2 + E)
