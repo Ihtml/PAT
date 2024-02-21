@@ -294,6 +294,25 @@ void DFS(int s, int v) {  // s起点编号，v当前访问的顶点编号(从终
     cout << v;  // 从最深处return回来之后，输出每一层的顶点号
 }
 ```
+①新增边权:
+以新增的边权代表花费为例，用cost[u][v]表示u→v的花费(由题目输入),
+并增加一个数组c[]，令从起点s到达顶点u的最少花费为c[u]，初始化时只有c[s]为0、其余c[u]均为INF 。这样就可以在d[u] + G[u][v] < d[v] (即可以使s到v的最短距离d[v]更优)时更新d[v]和c[v],而当d[u] + G[u][v] = d[v] ( 即最短距离相同)且c[u] + cost[u][v] < c[v] (即可以使s到v的最少花费更优)时更新c[v]。代码如下:
+```c++
+int cost[MAXV][MAXV], c[MAXV]; // cost[u][v]表示u→v的花费(由题目输入),s到点u的最少花费为c[u]
+for (int v = 0; v < n; v++) {
+    if (vis[v] == false && G[u][v] != INF) {  // 如果v未访问&&u能到达v
+        if (d[u] + G[u][v] < d[v]) {  // 以u为中介可以使d[v]更优
+            d[v] = d[u] + G[u][v];    // 优化d[v]
+            pre[v] = u;               // 记录v的前驱结点是u(新添加)
+            c[v] = c[u] + cost[u][v];
+        } else if (d[u] + G[u][v] == d[v] && c[u] + cost[u][v] < c[v]) {
+            c[v] = c[u] + cost[u][v];  // 最短距离相同时看能否使c[v]更优
+        }
+    }
+}
+
+```
+
 邻接表版：复杂度O(V^2 + E)
 ```c++
 struct node {
