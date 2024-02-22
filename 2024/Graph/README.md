@@ -312,6 +312,23 @@ for (int v = 0; v < n; v++) {
 }
 
 ```
+②新增点权
+以新增的点权代表城市中能收集到的物资为例，用weight[u]表示城市 u中的物资数目(由题目输入)，并增加一个数组w[]，令从起点s到达顶点u可以收集到的最大物资为w[u],初始化时只有w[s]为weight[s]、其余w[u]均为0。这样就可以在d[u] + G[u][v]< d[v] (即可以使s到v的最短距离d[v]更优)时更新d[v]和c[v]，而当d[u] + G[u][v] = d[v](即最短距离相同)且w[u] + weight[v]> w[v] (即可以使s到v的最大物资数目更优)时更新w[v]。代码如下:
+```c++
+int weight[MAXV], w[MAXV];
+for (int v = 0; v < n; v++) {
+    if (vis[v] == false && G[u][v] != INF) {  // 如果v未访问&&u能到达v
+        if (d[u] + G[u][v] < d[v]) {  // 以u为中介可以使d[v]更优
+            d[v] = d[u] + G[u][v];    // 优化d[v]
+            pre[v] = u;               // 记录v的前驱结点是u(新添加)
+            w[v] = w[u] + weight[v];
+        } else if (d[u] + G[u][v] == d[v] && w[u] + weight[v] > w[v]) {
+            w[v] = w[u] + weight[v];  // 最短距离相同时看能否使c[v]更优
+            pre[v] = u;
+        }
+    }
+}
+```
 
 邻接表版：复杂度O(V^2 + E)
 ```c++
