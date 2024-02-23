@@ -312,7 +312,7 @@ for (int v = 0; v < n; v++) {
 }
 
 ```
-②新增点权
+②新增点权:
 以新增的点权代表城市中能收集到的物资为例，用weight[u]表示城市 u中的物资数目(由题目输入)，并增加一个数组w[]，令从起点s到达顶点u可以收集到的最大物资为w[u],初始化时只有w[s]为weight[s]、其余w[u]均为0。这样就可以在d[u] + G[u][v]< d[v] (即可以使s到v的最短距离d[v]更优)时更新d[v]和c[v]，而当d[u] + G[u][v] = d[v](即最短距离相同)且w[u] + weight[v]> w[v] (即可以使s到v的最大物资数目更优)时更新w[v]。代码如下:
 ```c++
 int weight[MAXV], w[MAXV];
@@ -325,6 +325,26 @@ for (int v = 0; v < n; v++) {
         } else if (d[u] + G[u][v] == d[v] && w[u] + weight[v] > w[v]) {
             w[v] = w[u] + weight[v];  // 最短距离相同时看能否使c[v]更优
             pre[v] = u;
+        }
+    }
+}
+```
+③求最短路径条数:
+只需要增加一个数组num[],令从起点s到达顶点u的最短路径条
+数为num[u],初始化时只有num[s]为1、其余num[u]均为0。这样就可以在d[u] + G[u][v] < d[v] (即可以使s到v的最短距离d[v]更优)时更新d[v],并让num[v]继承num[u],而当d[u] + G[u][v] = d[v] (即最短距离相同)时将num[u]加到num[v]上。代码如下：
+```c++
+int num[MAXV];
+vector<int> pre[MAXV];
+for (int v = 0; v < n; v++) {
+    if (vis[v] == false && G[u][v] != INF) {  // 如果v未访问&&u能到达v
+        if (d[u] + G[u][v] < d[v]) {  // 以u为中介可以使d[v]更优
+            d[v] = d[u] + G[u][v];    // 优化d[v]
+            pre[v].clear();           // 清空v的前驱节点集合
+            pre[v].push_back(u);      // 将u加入v的前驱节点集合中
+            num[v] = num[u];
+        } else if (d[u] + G[u][v] == d[v]) {
+            num[v] += num[u];
+            pre[v].push_back(u); // 最短距离相同时累加num
         }
     }
 }
