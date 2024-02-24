@@ -381,3 +381,46 @@ void Dijkstra(int s) {
     }
 }
 ```
+
+通用模板方式：Dijkstra + DFS:
+先在Dijkstra算法中记录下所有最短路径(只考虑距离)，然后从这些最短路径中选出一条第二标尺最优的路径。
+```c++
+const int MAXV = 1000;
+const int INF = 100000000;
+
+// 邻接矩阵版
+int n, G[MAXV][MAXV];
+int d[MAXV];  // 起点到达各点的最短路径长度
+vector<int> pre[MAXV];  // pre[v]表示从起点到顶点v的的最短路径上v的前一个顶点
+bool vis[MAXV] = {false};  // 标记数组 vis[i]==true表示已访问，初值均为false
+
+void Dijkstra(int s) {  // s为起点
+    fill(d, d + MAXV, INF);
+    d[s] = 0;
+    for (int i = 0; i < n; i++) {
+        int u = -1, MIN = INF;  // 找到最小的d[u]
+        for (int j = 0; j < n; j++) {
+            if (vis[j] == false && d[j] < MIN) {
+                u = j;
+                MIN = d[j];
+            }
+        }
+        if (u == -1) {
+            return;
+        }
+        vis[u] = true;
+        for (int v = 0; v < n; v++) {
+            if (vis[v] == false && G[u][v] != INF) {
+                if (d[u] + G[u][v] < d[v]) {
+                    d[v] = d[u] + G[u][v];  // 优化d[v]
+                    pre[v].clear();         // 清空pre[v]
+                    pre[v].push_back(u);    // 令v的前驱为u
+                } else if (d[u] + G[u][v] == d[v]) {
+                    pre[v].push_back(u);  // 令v的前驱为u
+                }
+            }
+        }
+    }
+}
+int main() {}
+```
