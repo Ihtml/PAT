@@ -451,5 +451,12 @@ void DFS(int v) {   // v为当前访问结点
         DFS(pre[v][i]);  // 结点v的前驱结点pre[v][i],递归
     }
     tempPath.pop_back();  // 遍历完所有前驱结点，将当前结点v删除
+
+    // todo① 边权之和
+    int value = 0;
+    for (int i = tempPath.size() - 1; i > 0; i--) {  // 倒着访问结点
+        int id = tempPath[i], idNext = tempPath[i - 1];
+        value += G[id][idNext];  // value增加边id -> idNext的边权
+    }
 }
 ```
