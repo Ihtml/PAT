@@ -458,5 +458,11 @@ void DFS(int v) {   // v为当前访问结点
         int id = tempPath[i], idNext = tempPath[i - 1];
         value += G[id][idNext];  // value增加边id -> idNext的边权
     }
+     // todo②点权之和
+    int value = 0, weight[MAXV], w[MAXV];
+    for (int i = tempPath.size() - 1; i >= 0; i--) {  // 倒着访问结点
+        int id = tempPath[i];                         // 当前结点id
+        value += weight[id];  // value增加结点id的点权
+    }
 }
 ```
