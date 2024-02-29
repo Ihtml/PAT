@@ -21,7 +21,39 @@ int d[MAXV], c[MAXV], pre[MAXV];
 bool vis[MAXV] = {false};  // vis[i]==true表示顶点i已访问，初值均为false
 
 void Dijkstra(int s) {  // s为起点
-    // todo
+    fill(d, d + MAXV, INF);
+    fill(c, c + MAXV, INF);
+    for (int i = 0; i < n; i++) {
+        pre[i] = i;
+    }
+    d[s] = 0;  // 起点s到达自身的距离为0
+    c[s] = 0;  // 起点s到达自身的花费为0
+    for (int i = 0; i < n; i++) {
+        int u = -1, MIN = INF;
+        for (int j = 0; j < n; j++) {
+            if (vis[j] == false && d[j] < MIN) {
+                u = j;
+                MIN = d[j];
+            }
+        }
+        if (u == -1)
+            return;  // 找不到小于INF的d[u] 说明剩下的顶点和起点不连通
+        vis[u] = true;
+        for (int v = 0; v < n; v++) {
+            if (vis[v] == false && G[u][v] != INF) {
+                if (d[u] + G[u][v] < d[v]) {   // 以u为中介能令d[v]变小
+                    d[v] = d[u] + G[u][v];     // 优化d[v]
+                    c[v] = c[u] + cost[u][v];  // 优化c[v]
+                    pre[v] = u;                // 令v的前驱为u
+                } else if (d[u] + G[u][v] == d[v]) {  // 找到一条相同长度的路径
+                    if (c[u] + cost[u][v] < c[v]) {  // 以u为中介时花费c[v]更小
+                        c[v] = c[u] + cost[u][v];  // 优化c[v]
+                        pre[v] = u;                // 令v的前驱为u
+                    }
+                }
+            }
+        }
+    }
 }
 
 void DFS(int v) {  // 打印路径
