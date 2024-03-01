@@ -57,7 +57,12 @@ void Dijkstra(int s) {  // s为起点
 }
 
 void DFS(int v) {  // 打印路径
-    // todo
+    if (v == st) {
+        cout << v << " ";
+        return;
+    }
+    DFS(pre[v]);
+    cout << v << " ";
 }
 int main() {
     cin >> n >> m >> st >> ed;
@@ -71,6 +76,6 @@ int main() {
     }
     Dijkstra(st);
     DFS(ed);
-    cout << d[ed] << c[ed];  // 最短距离和最短路径下的最小花费
+    cout << d[ed] << " " << c[ed];  // 最短距离和最短路径下的最小花费
     return 0;
 }
