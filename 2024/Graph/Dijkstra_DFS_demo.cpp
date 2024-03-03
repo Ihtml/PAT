@@ -24,8 +24,32 @@ vector<int> pre[MAXV];       // 前驱
 vector<int> tempPath, path;  // 临时路径，最优路径
 
 // Dijkstra模板
-void Dijkstra(int s) {  // s为起点
-   
+void Dijkstra(int s) {              // s为起点
+    fill(d, d + MAXV * MAXV, INF);  // fill函数将整个d数组赋为INF
+    d[s] = 0;                       // 起点s到达自身的距离为0
+    for (int i = 0; i < n; i++) {   // 循环n次
+        int u = -1, MIN = INF;      // u使d[u]最小 MIN存放该最小的d[u]
+        for (int j = 0; j < n; j++) {
+            if (vis[j] == false && d[j] < MIN) {  // 找到未访问结点中最小的
+                u = j;
+                MIN = d[j];
+            }
+        }
+        if (u == -1)
+            return;  // 找不到小于INF的d[u] 说明剩下的顶点和起点不连通
+        vis[u] = true;  // 标记u为已访问
+        for (int v = 0; v < n; v++) {
+            if (vis[v] == false && G[u][v] != INF) {
+                if (d[u] + G[u][v] < d[v]) {  // 以v为中介使d[v]更小
+                    d[v] = d[u] + G[u][v];    // 优化d[v]
+                    pre[v].clear();
+                    pre[v].push_back(u);              // 更新u为v的前驱
+                } else if (d[u] + G[u][v] == d[v]) {  // 找到相同长度的路径
+                    pre[v].push_back(u);              // u为v的前驱之一
+                }
+            }
+        }
+    }
 }
 
 void DFS(int v) {  // 打印路径
