@@ -52,7 +52,26 @@ void Dijkstra(int s) {              // s为起点
     }
 }
 
-void DFS(int v) {  // 打印路径
+void DFS(int v) {   // v为当前结点
+    if (v == st) {  // 递归边界，到达叶子结点(路径起点)
+        tempPath.push_back(v);
+        int tempCost = 0;  // 记录当前路径的花费之和
+        for (int i = tempPath.size() - 1; i > 0; i--) {  // 倒着访问
+            int id = tempPath[i], idNext = tempPath[i - 1];
+            tempCost += cost[id][idNext];  // 增加边id->idNext的边权
+        }
+        if (tempCost < minCost) {
+            minCost = tempCost;
+            path = tempPath;
+        }
+        tempPath.pop_back();
+        return;
+    }
+    tempPath.push_back(v);
+    for (int i = 0; i < pre[v].size(); i++) {
+        DFS(pre[v][i]);
+    }
+    tempPath.pop_back();
 }
 int main() {
     cin >> n >> m >> st >> ed;
