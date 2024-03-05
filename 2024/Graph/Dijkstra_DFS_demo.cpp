@@ -24,11 +24,11 @@ vector<int> pre[MAXV];       // 前驱
 vector<int> tempPath, path;  // 临时路径，最优路径
 
 // Dijkstra模板
-void Dijkstra(int s) {              // s为起点
-    fill(d, d + MAXV * MAXV, INF);  // fill函数将整个d数组赋为INF
-    d[s] = 0;                       // 起点s到达自身的距离为0
-    for (int i = 0; i < n; i++) {   // 循环n次
-        int u = -1, MIN = INF;      // u使d[u]最小 MIN存放该最小的d[u]
+void Dijkstra(int s) {             // s为起点
+    fill(d, d + MAXV, INF);        // fill函数将整个d数组赋为INF
+    d[s] = 0;                      // 起点s到达自身的距离为0
+    for (int i = 0; i < n; i++) {  // 循环n次
+        int u = -1, MIN = INF;     // u使d[u]最小 MIN存放该最小的d[u]
         for (int j = 0; j < n; j++) {
             if (vis[j] == false && d[j] < MIN) {  // 找到未访问结点中最小的
                 u = j;
@@ -77,14 +77,18 @@ int main() {
     cin >> n >> m >> st >> ed;
     int u, v;
     fill(G[0], G[0] + MAXV * MAXV, INF);  // 初始化图G
+    fill(cost[0], cost[0] + MAXV * MAXV, INF);
     for (int i = 0; i < m; i++) {
         cin >> u >> v;
         cin >> G[u][v] >> cost[u][v];
         G[v][u] = G[u][v];
         cost[v][u] = cost[u][v];
     }
-    Dijkstra(st);                     // DFS算法入口
-    DFS(ed);                          // 获取最优路径
+    Dijkstra(st);  // DFS算法入口
+    DFS(ed);       // 获取最优路径
+    for (int i = path.size() - 1; i >= 0; i--) {
+        cout << path[i] << " ";  // 倒着输出路径上的结点
+    }
     cout << d[ed] << " " << minCost;  // 最短距离和最短路径下的最小花费
     return 0;
 }
