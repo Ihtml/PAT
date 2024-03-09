@@ -20,5 +20,22 @@ void Floyd() {
 }
 
 int main() {
+    int u, v, w;
+    fill(dis[0], dis[0] + MAXV * MAXV, INF);  // dis数组赋初值
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        dis[i][i] = 0;  // 顶点i到顶点i的距离初始为0
+    }
+    for (int i = 0; i < m; i++) {
+        cin >> u >> v >> w;
+        dis[u][v] = w;  // 有向图输出
+    }
+    Floyd();
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << dis[i][j] << " ";
+        }
+        cout << "\n";
+    }
     return 0;
 }
