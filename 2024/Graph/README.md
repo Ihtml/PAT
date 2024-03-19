@@ -606,4 +606,23 @@ int father[N];  // 并查集数组
 int findFather(int x){  // 并查集查询函数
 
 }
+int kruskal(int n, int m){  // 返回最小生成树的边权之和，参数n为顶点个数 m为边数
+    int ans = 0, Num_Edge = 0;
+    for(int i = 0; i <= n; i++){
+        father[i] = i;  // 并查集初始化
+    }
+    sort(E, E+m, cmp);  // 所有边从小到大排序
+    for(int i = 0; i < m; i++){  
+        int faU = findFather(E[i].u);
+        int faV = findFather(E[i].v);
+        if(faU != faV){  // 如何不在一个集合中
+            father[faU] = faV;  // 合并集合
+            ans += E[i].cost;  // 边权之和增加测试边的边权
+            Num_Edge++;  // 当前生成树的边数加1
+            if(Num_Edge == n-1) break;  // 边数等于顶点数减1时结束算法
+        }
+    }
+    if(Num_Edge != n-1) return -1;  // 无法连通时返回-1
+    else return ans;
+}
 ```
